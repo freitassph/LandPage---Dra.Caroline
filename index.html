@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dra. Caroline Aires | Psiquiatria Baseada em Evidências</title>
+    <title>Dra. Caroline Aires | Psiquiatra</title>
     
     <!-- Google Fonts: Playfair Display (Heading) & Montserrat (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,18 +22,20 @@
             },
             colors: {
               lux: {
-                primary: '#3B2314',   // Deep Earth - Marrom Café Profundo
-                secondary: '#A85832', // Rust/Clay - Terracota
-                bg: '#F9F7F2',        // Cream/Paper - Off-white Papel Antigo
+                primary: '#4E3629',   // REFINED: Espresso Intenso - Mais profundidade e autoridade sem perder o calor.
+                secondary: '#B87355', // REFINED: Cobre Suave - Elegante, menos "argila crua", mais sofisticado.
+                secondaryStrong: '#9E5234', // REFINED: Terracota Queimado - Alto contraste para CTAs e Links.
+                bg: '#FAF9F6',        // Alabaster - Mantido (Base perfeita).
                 surface: '#FFFFFF',
-                text: '#2C2420',      // Preto suavizado para Marrom muito escuro
-                muted: '#8C8580',
+                text: '#36261F',      // Dark Coffee - Quase preto, mas quente. Leitura perfeita.
+                textSoft: '#756259',  // Warm Taupe - Ajustado para contraste AA em textos de apoio.
+                muted: '#C7BDB6',     // Stone - Neutro de suporte.
               }
             },
             boxShadow: {
-              'soft': '0 20px 40px -15px rgba(59, 35, 20, 0.06)',
-              'card': '0 10px 30px -5px rgba(59, 35, 20, 0.04)',
-              'float': '0 20px 50px rgba(168, 88, 50, 0.15)',
+              'soft': '0 20px 40px -15px rgba(78, 54, 41, 0.08)',
+              'card': '0 10px 30px -5px rgba(78, 54, 41, 0.05)',
+              'float': '0 20px 50px rgba(158, 82, 52, 0.15)',
             },
             animation: {
               'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
@@ -55,8 +57,8 @@
     </script>
     <style>
       body {
-        background-color: #F9F7F2;
-        color: #2C2420;
+        background-color: #FAF9F6;
+        color: #36261F;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
@@ -70,19 +72,19 @@
         height: 100%;
         pointer-events: none;
         z-index: 50;
-        opacity: 0.03;
+        opacity: 0.035;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
 
       /* Smooth scrolling with offset for sticky header */
       html {
         scroll-behavior: smooth;
-        scroll-padding-top: 100px; /* Garante que o menu fixo não cubra o título */
+        scroll-padding-top: 100px;
       }
 
       /* Custom Selection Color */
       ::selection {
-        background: #A85832;
+        background: #B87355;
         color: #FFFFFF;
       }
       

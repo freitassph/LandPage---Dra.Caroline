@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Menu, X, MapPin, Calendar, Clock, Brain, FlaskConical, 
-  Star, Quote, ExternalLink, ArrowRight, MessageCircle, 
-  Wifi, ShieldCheck, HelpCircle, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
-  Phone, Mail, CheckCircle2, Instagram, Sparkles
+  Menu, X, MapPin, Calendar, Clock, Brain, 
+  Quote, ExternalLink, ArrowRight, MessageCircle, 
+  Wifi, ShieldCheck, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
+  Phone, CheckCircle2, Instagram, Sparkles
 } from 'lucide-react';
 import FadeIn from './components/FadeIn';
 import Button from './components/Button';
@@ -108,7 +108,7 @@ const App: React.FC = () => {
               Dra. Caroline Aires 
               <span className="hidden md:inline w-px h-6 bg-lux-primary/20"></span>
               <span className="font-sans text-[10px] md:text-xs font-medium text-lux-secondary tracking-widest uppercase">
-                Psiquiatria
+                Psiquiatra
               </span>
             </h1>
           </div>
@@ -119,7 +119,7 @@ const App: React.FC = () => {
               <a 
                 key={item.label}
                 href={`#${item.id}`}
-                className="text-sm font-medium text-lux-text/70 hover:text-lux-primary transition-colors relative group py-2"
+                className="text-sm font-medium text-lux-textSoft hover:text-lux-primary transition-colors relative group py-2"
               >
                 {item.label}
                 <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-lux-secondary transition-all duration-300 group-hover:w-1/2 group-hover:-translate-x-1/2"></span>
@@ -172,8 +172,8 @@ const App: React.FC = () => {
 
       {/* --- HERO SECTION --- */}
       <section className="relative pt-28 pb-16 md:pt-48 md:pb-32 overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
-        {/* Background Elements */}
-        <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F5EFE9] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[100px]"></div>
+        {/* Background Elements - Updated to a Stone/Sand tone (Removing Pinkish undertone) */}
+        <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F0ECE9] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[100px]"></div>
         
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
@@ -185,7 +185,7 @@ const App: React.FC = () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-[10px] md:text-xs font-bold tracking-widest text-lux-text/60 uppercase">Agenda 2026 Aberta</span>
+                  <span className="text-[10px] md:text-xs font-bold tracking-widest text-lux-textSoft uppercase">Agenda 2026 Aberta</span>
                 </div>
                 
                 <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-[1.15] md:leading-[1.1] tracking-tight">
@@ -199,7 +199,7 @@ const App: React.FC = () => {
                   e ciência.
                 </h2>
                 
-                <p className="text-base md:text-xl text-lux-text/70 font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance">
+                <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance">
                   Um espaço seguro para transformar angústia em autonomia. Diagnóstico preciso e plano terapêutico individualizado na Clínica HS ou via Telemedicina.
                 </p>
                 
@@ -222,7 +222,7 @@ const App: React.FC = () => {
                   </Button>
                 </div>
 
-                <div className="pt-8 md:pt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6 opacity-60">
+                <div className="pt-8 md:pt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6 opacity-80">
                    <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full">
                      <ShieldCheck size={16} /> Especialista | RQE 3262
                    </div>
@@ -237,8 +237,8 @@ const App: React.FC = () => {
             <div className="flex-1 w-full flex justify-center lg:justify-end relative">
               <FadeIn direction="right" delay={200}>
                 <div className="relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[480px] md:h-[550px] animate-float mx-auto">
-                  {/* Organic Shapes Background */}
-                  <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#E8E2D9] rounded-[30px] md:rounded-[40px] -z-10 rotate-3"></div>
+                  {/* Organic Shapes Background - Adjusted to Stone/Sand */}
+                  <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#EBE7E4] rounded-[30px] md:rounded-[40px] -z-10 rotate-3"></div>
                   
                   <img 
                     src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
@@ -246,13 +246,13 @@ const App: React.FC = () => {
                     className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-2xl z-10 relative"
                   />
                   
-                  {/* Floating Badge - Design atualizado para ser centralizado */}
-                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_-10px_rgba(168,88,50,0.1)] border border-lux-secondary/5 w-[90%] md:w-auto md:max-w-[340px] z-20 animate-float flex flex-col items-center text-center">
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_-10px_rgba(163,88,54,0.1)] border border-lux-secondary/5 w-[90%] md:w-auto md:max-w-[340px] z-20 animate-float flex flex-col items-center text-center">
                     <div className="flex items-center gap-3 mb-3 justify-center">
                        <HeartPulse size={24} className="text-lux-secondary fill-lux-secondary/10" strokeWidth={2} />
                        <span className="font-serif text-lux-primary font-bold text-lg md:text-xl tracking-tight">Tratamento humanizado</span>
                     </div>
-                    <p className="font-serif text-lux-text/70 text-base md:text-lg italic leading-relaxed">
+                    <p className="font-serif text-lux-textSoft text-base md:text-lg italic leading-relaxed">
                       "Ciência e humanização."
                     </p>
                   </div>
@@ -278,7 +278,7 @@ const App: React.FC = () => {
                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 md:p-12">
-                     <p className="text-white/90 font-serif italic text-lg md:text-2xl text-center">"Um ambiente pensado para o seu acolhimento."</p>
+                     <p className="text-white/95 font-serif italic text-lg md:text-2xl text-center">"Um ambiente pensado para o seu acolhimento."</p>
                   </div>
                 </div>
               </FadeIn>
@@ -294,7 +294,7 @@ const App: React.FC = () => {
                   </span>
                   <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-6 md:mb-8 text-center md:text-left w-full">Dra. Caroline Aires</h2>
                   
-                  <div className="space-y-4 md:space-y-6 text-lux-text/80 leading-relaxed font-light text-base md:text-lg text-justify">
+                  <div className="space-y-4 md:space-y-6 text-lux-textSoft leading-relaxed font-light text-base md:text-lg text-justify">
                     <p>
                       Médica Psiquiatra, idealizadora da Clínica HS e apaixonada por entender a mente humana. 
                     </p>
@@ -309,11 +309,11 @@ const App: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4 md:gap-6 my-8 md:my-10 w-full">
                     <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left">
                       <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1">RQE 3262</h4>
-                      <p className="text-[10px] md:text-xs text-lux-text/60 uppercase tracking-wide">Registro de Especialista</p>
+                      <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Registro de Especialista</p>
                     </div>
                     <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left">
                       <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1">+10 Anos</h4>
-                      <p className="text-[10px] md:text-xs text-lux-text/60 uppercase tracking-wide">Dedicação à Medicina</p>
+                      <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Dedicação à Medicina</p>
                     </div>
                   </div>
 
@@ -322,7 +322,7 @@ const App: React.FC = () => {
                         href={LINKS.escavador}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-xs font-bold text-lux-secondary hover:text-lux-primary tracking-widest uppercase border-b border-lux-secondary/30 hover:border-lux-primary pb-0.5 transition-all"
+                        className="inline-flex items-center text-xs font-bold text-lux-secondaryStrong hover:text-lux-primary tracking-widest uppercase border-b border-lux-secondaryStrong/30 hover:border-lux-primary pb-0.5 transition-all"
                      >
                        Ver Currículo Completo (Escavador) <ExternalLink size={12} className="ml-1" />
                      </a>
@@ -330,7 +330,7 @@ const App: React.FC = () => {
 
                   <div className="relative pl-8 py-2 border-l-2 border-lux-secondary/20 w-full">
                     <Quote className="absolute top-0 left-2 text-lux-secondary/20 w-4 h-4 -translate-x-full rotate-180" />
-                    <p className="italic text-lux-text/80 font-serif text-lg md:text-xl leading-relaxed text-left">
+                    <p className="italic text-lux-text font-serif text-lg md:text-xl leading-relaxed text-left">
                       "Transformando ansiedade em futuro brilhante através de uma medicina baseada em evidências e empatia."
                     </p>
                   </div>
@@ -348,7 +348,7 @@ const App: React.FC = () => {
             <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
               <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase mb-2 block">Por que escolher a Clínica HS?</span>
               <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4">Medicina Acolhedora e Humanizada</h2>
-              <p className="text-lux-text/60 font-light leading-relaxed px-4">
+              <p className="text-lux-textSoft font-light leading-relaxed px-4">
                 Mais do que diagnósticos, oferecemos um porto seguro. Uma prática médica que valoriza sua história, respeita seu tempo e constrói o tratamento junto com você.
               </p>
             </div>
@@ -376,11 +376,11 @@ const App: React.FC = () => {
                 <div className="p-6 md:p-8 bg-white rounded-2xl border border-transparent hover:border-lux-secondary/10 transition-all duration-500 hover:shadow-float group h-full flex flex-col items-center text-center relative overflow-hidden active:scale-[0.98] transform">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-lux-secondary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                   
-                  <div className="text-lux-secondary mb-4 md:mb-6 p-4 md:p-5 bg-[#F5EFE9] rounded-full shadow-sm group-hover:scale-110 group-hover:bg-lux-primary group-hover:text-white transition-all duration-500">
+                  <div className="text-lux-secondary mb-4 md:mb-6 p-4 md:p-5 bg-[#F0ECE9] rounded-full shadow-sm group-hover:scale-110 group-hover:bg-lux-primary group-hover:text-white transition-all duration-500">
                     {item.icon}
                   </div>
                   <h3 className="font-serif text-xl md:text-2xl font-medium text-lux-primary mb-3 md:mb-4">{item.title}</h3>
-                  <p className="text-lux-text/70 text-sm leading-relaxed">{item.text}</p>
+                  <p className="text-lux-textSoft text-sm leading-relaxed">{item.text}</p>
                 </div>
               </FadeIn>
             ))}
@@ -404,7 +404,7 @@ const App: React.FC = () => {
                 <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-4 md:mb-6">
                   Como posso te <span className="text-lux-secondary italic">ajudar</span>?
                 </h2>
-                <p className="text-lux-text/70 mb-6 md:mb-8 leading-relaxed">
+                <p className="text-lux-textSoft mb-6 md:mb-8 leading-relaxed">
                   O tratamento psiquiátrico é indicado para diversas condições que afetam o bem-estar mental. Se você se identifica com algum destes quadros, saiba que existe tratamento eficaz.
                 </p>
                 <Button 
@@ -445,7 +445,7 @@ const App: React.FC = () => {
             <div className="text-center mb-12 md:mb-16">
                <Quote size={40} className="text-lux-secondary mx-auto mb-4 opacity-50 md:w-12 md:h-12" />
                <h2 className="font-serif text-3xl md:text-4xl text-white mb-2">Histórias de Transformação</h2>
-               <p className="text-white/60 text-sm md:text-base">O que nossos pacientes dizem sobre a experiência HS.</p>
+               <p className="text-white/80 text-sm md:text-base">O que nossos pacientes dizem sobre a experiência HS.</p>
             </div>
           </FadeIn>
 
@@ -469,8 +469,8 @@ const App: React.FC = () => {
                       {["M", "R", "L"][i]}
                     </div>
                     <div>
-                      <span className="text-xs text-white/40 block uppercase tracking-wider">Paciente</span>
-                      <span className="text-sm text-white/80">Verificado</span>
+                      <span className="text-xs text-white/60 block uppercase tracking-wider">Paciente</span>
+                      <span className="text-sm text-white/90">Verificado</span>
                     </div>
                   </div>
                 </div>
@@ -502,14 +502,14 @@ const App: React.FC = () => {
                     <span className={`font-medium text-base md:text-lg transition-colors pr-4 ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
                       {item.question}
                     </span>
-                    {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-text/40 shrink-0" />}
+                    {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-textSoft shrink-0" />}
                   </button>
                   <div 
                     className={`transition-all duration-300 ease-in-out overflow-hidden ${
                       openFaqIndex === index ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="p-5 md:p-6 pt-0 text-lux-text/70 leading-relaxed mt-2 text-sm md:text-base border-t border-transparent">
+                    <div className="p-5 md:p-6 pt-0 text-lux-textSoft leading-relaxed mt-2 text-sm md:text-base border-t border-transparent">
                       {item.answer}
                     </div>
                   </div>
@@ -526,7 +526,7 @@ const App: React.FC = () => {
            <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
              <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10">
                <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6">Inicie sua jornada de cuidado.</h3>
-               <p className="text-white/70 mb-8 text-base md:text-lg font-light">
+               <p className="text-white/80 mb-8 text-base md:text-lg font-light">
                  Sua saúde mental é seu bem mais precioso. Agende sua consulta e dê o primeiro passo.
                </p>
                
@@ -537,7 +537,7 @@ const App: React.FC = () => {
                    </div>
                    <div>
                      <h4 className="font-bold text-lg">Clínica HS</h4>
-                     <p className="text-white/60 text-sm">Gurupi - TO</p>
+                     <p className="text-white/80 text-sm">Gurupi - TO</p>
                      <a href={LINKS.maps} target="_blank" rel="noreferrer" className="text-lux-secondary text-sm underline mt-1 block hover:text-white transition-colors">Ver no mapa</a>
                    </div>
                  </div>
@@ -547,7 +547,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-lg">Contato</h4>
-                      <p className="text-white/60 text-sm">+55 63 3301-0307</p>
+                      <p className="text-white/80 text-sm">+55 63 3301-0307</p>
                     </div>
                  </div>
                </div>
@@ -572,7 +572,7 @@ const App: React.FC = () => {
                </div>
              </div>
              
-             <div className="md:w-1/2 h-64 md:h-auto relative bg-[#E6DCD3]">
+             <div className="md:w-1/2 h-64 md:h-auto relative bg-[#E6E1DC]">
                <iframe 
                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31633.90483488836!2d-49.0710252!3d-11.7290193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDQzJzQ0LjUiUyA0OcKwMDQnMTUuNyJX!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
                  width="100%" 
@@ -593,9 +593,9 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-10 md:gap-16 mb-12 md:mb-16">
             <div className="space-y-4 md:space-y-6">
               <h4 className="font-serif text-xl md:text-2xl font-bold text-lux-bg">Dra. Caroline Aires</h4>
-              <div className="text-white/70 text-sm leading-relaxed max-w-sm">
+              <div className="text-white/80 text-sm leading-relaxed max-w-sm">
                 <strong className="font-bold text-white">Médica Psiquiatra</strong>
-                <span className="block mt-2 text-[10px] text-white/50 uppercase tracking-wider leading-relaxed">
+                <span className="block mt-2 text-[10px] text-white/60 uppercase tracking-wider leading-relaxed">
                   CRM-TO 7024 - MÉDICO<br/>
                   Psiquiatria - RQE-TO 3262
                 </span>
@@ -604,7 +604,7 @@ const App: React.FC = () => {
                    <strong className="font-bold text-white">Clinica HS | Gurupi-TO</strong>
                 </span>
                 
-                <span className="block mt-2 text-[10px] text-white/50 uppercase tracking-wider leading-relaxed">
+                <span className="block mt-2 text-[10px] text-white/60 uppercase tracking-wider leading-relaxed">
                    Diretor Técnico-Médico: <br/> 
                    Caroline Aires Henrique de Santana <br/>
                    CRM-TO 7024 - MÉDICO <br/>
@@ -615,7 +615,7 @@ const App: React.FC = () => {
             
             <div>
               <h4 className="font-bold text-lux-bg mb-4 md:mb-6 text-lg">Navegação</h4>
-              <ul className="space-y-3 md:space-y-4 text-sm text-white/70">
+              <ul className="space-y-3 md:space-y-4 text-sm text-white/80">
                 <li><a href="#sobre" className="hover:text-lux-secondary transition-colors block py-1">Sobre Mim</a></li>
                 <li><a href="#diferenciais" className="hover:text-lux-secondary transition-colors block py-1">Nossa Filosofia</a></li>
                 <li><a href="#tratamentos" className="hover:text-lux-secondary transition-colors block py-1">Tratamentos</a></li>
@@ -626,10 +626,10 @@ const App: React.FC = () => {
             <div>
               <h4 className="font-bold text-lux-bg mb-4 md:mb-6 text-lg">Importante</h4>
               <div className="bg-white/5 border border-white/10 p-5 md:p-6 rounded-lg flex gap-4 items-start hover:bg-white/10 transition-colors group">
-                <AlertCircle size={20} className="text-lux-secondary shrink-0 mt-0.5 group-hover:text-white transition-colors" />
+                <AlertCircle size={20} className="text-lux-secondaryStrong shrink-0 mt-0.5 group-hover:text-white transition-colors" />
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-lux-secondary group-hover:text-white transition-colors">Emergência</span>
-                  <p className="text-xs text-white/70 leading-relaxed">
+                  <span className="text-xs font-bold uppercase tracking-wider text-lux-secondaryStrong group-hover:text-white transition-colors">Emergência</span>
+                  <p className="text-xs text-white/95 leading-relaxed">
                     Este site não oferece atendimento de emergência. Em caso de crise ou risco à vida, ligue para o <strong>CVV 188</strong> ou dirija-se ao pronto-socorro mais próximo.
                   </p>
                 </div>
@@ -638,7 +638,7 @@ const App: React.FC = () => {
           </div>
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-            <p className="text-xs text-white/40 font-light tracking-wide">
+            <p className="text-xs text-white/50 font-light tracking-wide">
               © 2026 Dra. Caroline Aires. Todos os direitos reservados.
             </p>
             <div className="flex gap-6 items-center">
@@ -646,7 +646,7 @@ const App: React.FC = () => {
                 href={LINKS.instagram} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-white/60 hover:text-lux-secondary transition-colors flex items-center gap-2 text-xs uppercase tracking-widest font-medium"
+                className="text-white/70 hover:text-lux-secondary transition-colors flex items-center gap-2 text-xs uppercase tracking-widest font-medium"
               >
                 <Instagram size={16} /> Instagram
               </a>
