@@ -247,14 +247,17 @@ const App: React.FC = () => {
                   />
                   
                   {/* Floating Badge */}
-                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_-10px_rgba(163,88,54,0.1)] border border-lux-secondary/5 w-[90%] md:w-auto md:max-w-[340px] z-20 animate-float flex flex-col items-center text-center">
-                    <div className="flex items-center gap-3 mb-3 justify-center">
-                       <HeartPulse size={24} className="text-lux-secondary fill-lux-secondary/10" strokeWidth={2} />
-                       <span className="font-serif text-lux-primary font-bold text-lg md:text-xl tracking-tight">Tratamento humanizado</span>
+                  {/* Wrapper para centralizar. Usar flex justify-center no wrapper evita conflito com transform do animate-float */}
+                  <div className="absolute -bottom-6 left-0 w-full flex justify-center z-20">
+                    <div className="bg-white p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_-10px_rgba(163,88,54,0.1)] border border-lux-secondary/5 w-[90%] md:w-auto md:max-w-[340px] animate-float flex flex-col items-center text-center">
+                      <div className="flex items-center gap-3 mb-3 justify-center">
+                         <HeartPulse size={24} className="text-lux-secondary fill-lux-secondary/10" strokeWidth={2} />
+                         <span className="font-serif text-lux-primary font-bold text-lg md:text-xl tracking-tight">Tratamento humanizado</span>
+                      </div>
+                      <p className="font-serif text-lux-textSoft text-base md:text-lg italic leading-relaxed">
+                        "Ciência e humanização."
+                      </p>
                     </div>
-                    <p className="font-serif text-lux-textSoft text-base md:text-lg italic leading-relaxed">
-                      "Ciência e humanização."
-                    </p>
                   </div>
                 </div>
               </FadeIn>
