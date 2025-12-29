@@ -38,22 +38,37 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Simplified Scroll Handler (CSS scroll-padding-top handles the offset now)
-  const handleNavClick = (id: string) => {
+  // Função robusta para rolagem suave com cálculo de Offset manual
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault(); // Previne o comportamento padrão
     setMobileMenuOpen(false);
-    // Allow default anchor behavior because of html { scroll-behavior: smooth }
+    
+    const element = document.getElementById(id);
+    if (element) {
+      // Altura do Header (aprox 80-90px) + Respiro visual (20px) = ~110px
+      // Isso garante que o título da seção não fique escondido atrás do header fixo
+      const headerOffset = 110; 
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
   };
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
+  // REORDERED NAV ITEMS: Contato now comes before Dúvidas
   const navItems = [
     { label: 'Sobre', id: 'sobre' },
     { label: 'Diferenciais', id: 'diferenciais' },
     { label: 'Tratamentos', id: 'tratamentos' },
+    { label: 'Localização', id: 'contato' },
     { label: 'Dúvidas', id: 'faq' },
-    { label: 'Contato', id: 'contato' },
   ];
 
   const treatments = [
@@ -90,9 +105,10 @@ const App: React.FC = () => {
     <div className="min-h-screen font-sans text-lux-text bg-lux-bg overflow-x-hidden selection:bg-lux-secondary selection:text-white">
       
       {/* --- BACK TO TOP BUTTON --- */}
+      {/* Z-Index aumentado para 60 para ficar acima do bg-noise (50) */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-24 right-6 z-40 bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondary p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondary hover:text-white hover:-translate-y-1 ${
+        className={`fixed bottom-24 right-6 z-[60] bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondary p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondary hover:text-white hover:-translate-y-1 ${
           showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
         aria-label="Voltar ao topo"
@@ -101,11 +117,12 @@ const App: React.FC = () => {
       </button>
 
       {/* --- FLOATING WHATSAPP --- */}
+      {/* Z-Index aumentado para 60 */}
       <a 
         href={LINKS.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-float hover:scale-105 transition-all duration-300 ease-luxury hover:shadow-[#25D366]/40 group active:scale-95"
+        className="fixed bottom-6 right-6 z-[60] flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-float hover:scale-105 transition-all duration-300 ease-luxury hover:shadow-[#25D366]/40 group active:scale-95"
         aria-label="Falar no WhatsApp"
       >
         <span className="absolute right-16 bg-white/95 backdrop-blur-sm text-lux-text text-xs px-3 py-1.5 rounded-lg shadow-soft opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap hidden sm:block border border-lux-primary/5 translate-x-2 group-hover:translate-x-0">
@@ -116,8 +133,9 @@ const App: React.FC = () => {
       </a>
 
       {/* --- HEADER --- */}
+      {/* Z-Index aumentado para 60 para garantir interatividade */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-luxury ${
+        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ease-luxury ${
           isScrolled 
             ? 'bg-lux-bg/90 backdrop-blur-xl shadow-sm py-3 border-b border-lux-primary/5' 
             : 'bg-transparent py-4 md:py-6'
@@ -128,7 +146,7 @@ const App: React.FC = () => {
             <h1 className="font-serif text-lg md:text-xl lg:text-2xl font-bold text-lux-primary tracking-tight cursor-pointer flex flex-col md:flex-row md:items-center gap-1 md:gap-3" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
               Dra. Caroline Aires 
               <span className="hidden md:inline w-px h-6 bg-lux-primary/20"></span>
-              <span className="font-sans text-[10px] md:text-xs font-medium text-lux-secondary tracking-widest uppercase">
+              <span className="font-sans text-[11px] md:text-xs font-medium text-lux-secondary tracking-widest uppercase">
                 Psiquiatra
               </span>
             </h1>
@@ -140,7 +158,8 @@ const App: React.FC = () => {
               <a 
                 key={item.label}
                 href={`#${item.id}`}
-                className="text-sm font-medium text-lux-textSoft hover:text-lux-primary transition-colors duration-300 relative group py-2"
+                onClick={(e) => handleScrollTo(e, item.id)} // Uso da função handleScrollTo
+                className="text-sm font-medium text-lux-textSoft hover:text-lux-primary transition-colors duration-300 relative group py-2 tracking-wide cursor-pointer"
               >
                 {item.label}
                 <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-lux-secondary transition-all duration-300 ease-luxury group-hover:w-1/2 group-hover:-translate-x-1/2"></span>
@@ -175,7 +194,7 @@ const App: React.FC = () => {
             <a 
               key={item.label}
               href={`#${item.id}`}
-              onClick={() => handleNavClick(item.id)}
+              onClick={(e) => handleScrollTo(e, item.id)} // Uso da função handleScrollTo
               style={{ transitionDelay: `${idx * 50}ms` }}
               className={`text-3xl font-serif text-lux-primary hover:text-lux-secondary transition-all duration-500 transform ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
             >
@@ -207,13 +226,13 @@ const App: React.FC = () => {
                 {/* REFINED COPY: Authority > Scarcity for Luxury Medical Markets */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-lux-primary/5 rounded-full mb-4 md:mb-6 shadow-sm cursor-default">
                   <Star size={12} className="text-lux-secondary fill-lux-secondary" />
-                  <span className="text-[10px] md:text-xs font-bold tracking-widest text-lux-textSoft uppercase">Psiquiatria | Atendimento Especializado</span>
+                  <span className="text-xs font-bold tracking-widest text-lux-textSoft uppercase">Psiquiatria | Atendimento Especializado</span>
                 </div>
                 
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-[1.15] md:leading-[1.1] tracking-tight">
+                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-[1.15] md:leading-[1.1] tracking-tighter">
                   Saúde mental com <br/>
                   <span className="relative inline-block">
-                    <span className="relative z-10 italic text-lux-secondary pr-3">acolhimento</span>
+                    <span className="relative z-10 italic text-lux-secondary pr-3 tracking-normal">acolhimento</span>
                     <svg className="absolute bottom-2 left-0 w-full h-2 md:h-3 -z-0 opacity-20 text-lux-secondary" viewBox="0 0 100 10" preserveAspectRatio="none">
                       <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                     </svg>
@@ -291,7 +310,7 @@ const App: React.FC = () => {
       </section>
 
        {/* --- SOBRE A DRA (IMAGEM EXPANDIDA) --- */}
-       <section id="sobre" className="py-16 md:py-24 bg-white relative">
+       <section className="py-16 md:py-24 bg-white relative">
         <div className="container mx-auto px-6">
           <div className="flex flex-col gap-12 items-center">
             {/* Imagem Full Width / Centralizada */}
@@ -312,14 +331,14 @@ const App: React.FC = () => {
             </div>
 
             {/* Texto Centralizado Abaixo */}
-            <div className="max-w-4xl mx-auto w-full">
+            <div id="sobre" className="max-w-4xl mx-auto w-full">
               <FadeIn delay={200}>
                 <div className="flex flex-col items-center text-center md:text-left md:items-start">
                    <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase mb-4 block flex items-center gap-2">
                     <span className="w-8 h-px bg-lux-secondary"></span>
                     Conheça sua médica
                   </span>
-                  <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-6 md:mb-8 text-center md:text-left w-full">Dra. Caroline Aires</h2>
+                  <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-6 md:mb-8 text-center md:text-left w-full tracking-tight">Dra. Caroline Aires</h2>
                   
                   <div className="space-y-4 md:space-y-6 text-lux-textSoft leading-relaxed font-light text-base md:text-lg text-justify">
                     <p>
@@ -336,11 +355,11 @@ const App: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4 md:gap-6 my-8 md:my-10 w-full">
                     <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left group cursor-default">
                       <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1 group-hover:text-lux-secondary transition-colors">RQE 3262</h4>
-                      <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Registro de Especialista</p>
+                      <p className="text-xs text-lux-textSoft uppercase tracking-widest mt-1">Registro de Especialista</p>
                     </div>
                     <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left group cursor-default">
                       <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1 group-hover:text-lux-secondary transition-colors">+10 Anos</h4>
-                      <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Dedicação à Medicina</p>
+                      <p className="text-xs text-lux-textSoft uppercase tracking-widest mt-1">Dedicação à Medicina</p>
                     </div>
                   </div>
 
@@ -374,7 +393,7 @@ const App: React.FC = () => {
           <FadeIn>
             <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
               <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase mb-2 block">Por que escolher a Clínica HS?</span>
-              <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4">Medicina Acolhedora e Humanizada</h2>
+              <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4 tracking-tight">Medicina Acolhedora e Humanizada</h2>
               <p className="text-lux-textSoft font-light leading-relaxed px-4">
                 Mais do que diagnósticos, oferecemos um porto seguro. Uma prática médica que valoriza sua história, respeita seu tempo e constrói o tratamento junto com você.
               </p>
@@ -428,8 +447,8 @@ const App: React.FC = () => {
                   <Sparkles size={16} className="text-lux-secondary" />
                   <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase">Áreas de Atuação</span>
                 </div>
-                <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-4 md:mb-6">
-                  Como posso te <span className="text-lux-secondary italic">ajudar</span>?
+                <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-4 md:mb-6 tracking-tight">
+                  Como posso te <span className="text-lux-secondary italic tracking-normal">ajudar</span>?
                 </h2>
                 <p className="text-lux-textSoft mb-6 md:mb-8 leading-relaxed">
                   O tratamento psiquiátrico é indicado para diversas condições que afetam o bem-estar mental. Se você se identifica com algum destes quadros, saiba que existe tratamento eficaz.
@@ -472,7 +491,7 @@ const App: React.FC = () => {
           <FadeIn>
             <div className="text-center mb-12 md:mb-16">
                <Quote size={40} className="text-lux-secondary mx-auto mb-4 opacity-50 md:w-12 md:h-12" />
-               <h2 className="font-serif text-3xl md:text-4xl text-white mb-2">Histórias de Transformação</h2>
+               <h2 className="font-serif text-3xl md:text-4xl text-white mb-2 tracking-tight">Histórias de Transformação</h2>
                <p className="text-white/80 text-sm md:text-base">O que nossos pacientes dizem sobre a experiência HS.</p>
             </div>
           </FadeIn>
@@ -514,54 +533,12 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- FAQ SECTION --- */}
-      <section id="faq" className="py-16 md:py-24 bg-lux-bg">
-        <div className="container mx-auto px-6 max-w-3xl">
-          <FadeIn>
-             <div className="text-center mb-10 md:mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4">Perguntas Frequentes</h2>
-            </div>
-          </FadeIn>
-
-          <div className="space-y-3 md:space-y-4">
-            {faqItems.map((item, index) => (
-              <FadeIn key={index} delay={index * 100}>
-                <div 
-                  className={`bg-white rounded-xl overflow-hidden transition-all duration-500 ease-luxury border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
-                >
-                  <button 
-                    onClick={() => toggleFaq(index)}
-                    className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none active:bg-gray-50"
-                  >
-                    <span className={`font-medium text-base md:text-lg transition-colors pr-4 ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
-                      {item.question}
-                    </span>
-                    <div className={`transition-transform duration-500 ease-luxury ${openFaqIndex === index ? 'rotate-180' : ''}`}>
-                       {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-textSoft shrink-0" />}
-                    </div>
-                  </button>
-                  <div 
-                    className={`transition-all duration-500 ease-luxury overflow-hidden ${
-                      openFaqIndex === index ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <div className="p-5 md:p-6 pt-0 text-lux-textSoft leading-relaxed mt-2 text-sm md:text-base border-t border-transparent">
-                      {item.answer}
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- LOCALIZAÇÃO & CTA FINAL --- */}
+      {/* --- LOCALIZAÇÃO & CTA FINAL (MOVIDO PARA CIMA) --- */}
       <section id="contato" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative group">
              <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10 backdrop-blur-sm bg-lux-primary/95">
-               <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6">Inicie sua jornada de cuidado.</h3>
+               <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6 tracking-tight">Inicie sua jornada de cuidado.</h3>
                <p className="text-white/80 mb-8 text-base md:text-lg font-light">
                  Sua saúde mental é seu bem mais precioso. Agende sua consulta e dê o primeiro passo.
                </p>
@@ -624,6 +601,48 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* --- FAQ SECTION (MOVIDO PARA BAIXO) --- */}
+      <section id="faq" className="py-16 md:py-24 bg-lux-bg">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <FadeIn>
+             <div className="text-center mb-10 md:mb-12">
+              <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4 tracking-tight">Perguntas Frequentes</h2>
+            </div>
+          </FadeIn>
+
+          <div className="space-y-3 md:space-y-4">
+            {faqItems.map((item, index) => (
+              <FadeIn key={index} delay={index * 100}>
+                <div 
+                  className={`bg-white rounded-xl overflow-hidden transition-all duration-500 ease-luxury border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
+                >
+                  <button 
+                    onClick={() => toggleFaq(index)}
+                    className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none active:bg-gray-50"
+                  >
+                    <span className={`font-medium text-base md:text-lg transition-colors pr-4 ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
+                      {item.question}
+                    </span>
+                    <div className={`transition-transform duration-500 ease-luxury ${openFaqIndex === index ? 'rotate-180' : ''}`}>
+                       {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-textSoft shrink-0" />}
+                    </div>
+                  </button>
+                  <div 
+                    className={`transition-all duration-500 ease-luxury overflow-hidden ${
+                      openFaqIndex === index ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="p-5 md:p-6 pt-0 text-lux-textSoft leading-relaxed mt-2 text-sm md:text-base border-t border-transparent">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* --- FOOTER (DARK THEME) --- */}
       <footer className="bg-lux-primary text-white pt-16 md:pt-20 pb-10">
         <div className="container mx-auto px-6">
@@ -632,7 +651,7 @@ const App: React.FC = () => {
               <h4 className="font-serif text-xl md:text-2xl font-bold text-lux-bg">Dra. Caroline Aires</h4>
               <div className="text-white/80 text-sm leading-relaxed max-w-sm">
                 <strong className="font-bold text-white">Médica Psiquiatra</strong>
-                <span className="block mt-2 text-[10px] text-white/60 uppercase tracking-wider leading-relaxed">
+                <span className="block mt-2 text-xs text-white/60 uppercase tracking-widest leading-relaxed">
                   CRM-TO 7024 - MÉDICO<br/>
                   Psiquiatria - RQE-TO 3262
                 </span>
@@ -641,7 +660,7 @@ const App: React.FC = () => {
                    <strong className="font-bold text-white">Clinica HS | Gurupi-TO</strong>
                 </span>
                 
-                <span className="block mt-2 text-[10px] text-white/60 uppercase tracking-wider leading-relaxed">
+                <span className="block mt-2 text-xs text-white/60 uppercase tracking-widest leading-relaxed">
                    Diretor Técnico-Médico: <br/> 
                    Caroline Aires Henrique de Santana <br/>
                    CRM-TO 7024 - MÉDICO <br/>
@@ -676,7 +695,7 @@ const App: React.FC = () => {
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
             <p className="text-xs text-white/50 font-light tracking-wide">
-              © 2025 Dra. Caroline Aires. Todos os direitos reservados.
+              © 2026 Dra. Caroline Aires. Todos os direitos reservados.
             </p>
             <div className="flex gap-6 items-center">
               <a 
