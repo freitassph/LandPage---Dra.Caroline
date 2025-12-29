@@ -3,7 +3,7 @@ import {
   Menu, X, MapPin, Calendar, Clock, Brain, 
   Quote, ExternalLink, ArrowRight, MessageCircle, 
   Wifi, ShieldCheck, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
-  Phone, CheckCircle2, Instagram, Sparkles
+  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp
 } from 'lucide-react';
 import FadeIn from './components/FadeIn';
 import Button from './components/Button';
@@ -19,17 +19,24 @@ const LINKS = {
 
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   // Scroll Listener
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 30);
+      setShowBackToTop(scrollY > 600);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Simplified Scroll Handler (CSS scroll-padding-top handles the offset now)
   const handleNavClick = (id: string) => {
@@ -56,7 +63,7 @@ const App: React.FC = () => {
     "Transtorno Bipolar",
     "Insônia",
     "TOC",
-    "Estresse Pós-Traumático",
+    "Burnout",
     "Transtornos de Humor"
   ];
 
@@ -82,21 +89,35 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen font-sans text-lux-text bg-lux-bg overflow-x-hidden selection:bg-lux-secondary selection:text-white">
       
+      {/* --- BACK TO TOP BUTTON --- */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-24 right-6 z-40 bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondary p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondary hover:text-white hover:-translate-y-1 ${
+          showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
+        aria-label="Voltar ao topo"
+      >
+        <ArrowUp size={20} />
+      </button>
+
       {/* --- FLOATING WHATSAPP --- */}
       <a 
         href={LINKS.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-transform hover:shadow-[#25D366]/40 group"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-float hover:scale-105 transition-all duration-300 ease-luxury hover:shadow-[#25D366]/40 group active:scale-95"
         aria-label="Falar no WhatsApp"
       >
-        <span className="absolute right-16 bg-white text-lux-text text-xs px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block">Agendar agora</span>
-        <MessageCircle size={28} fill="white" className="text-white" />
+        <span className="absolute right-16 bg-white/95 backdrop-blur-sm text-lux-text text-xs px-3 py-1.5 rounded-lg shadow-soft opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap hidden sm:block border border-lux-primary/5 translate-x-2 group-hover:translate-x-0">
+          Agendar agora
+        </span>
+        <div className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse"></div>
+        <MessageCircle size={28} fill="white" className="text-white relative z-10" />
       </a>
 
       {/* --- HEADER --- */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-luxury ${
           isScrolled 
             ? 'bg-lux-bg/90 backdrop-blur-xl shadow-sm py-3 border-b border-lux-primary/5' 
             : 'bg-transparent py-4 md:py-6'
@@ -119,10 +140,10 @@ const App: React.FC = () => {
               <a 
                 key={item.label}
                 href={`#${item.id}`}
-                className="text-sm font-medium text-lux-textSoft hover:text-lux-primary transition-colors relative group py-2"
+                className="text-sm font-medium text-lux-textSoft hover:text-lux-primary transition-colors duration-300 relative group py-2"
               >
                 {item.label}
-                <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-lux-secondary transition-all duration-300 group-hover:w-1/2 group-hover:-translate-x-1/2"></span>
+                <span className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-lux-secondary transition-all duration-300 ease-luxury group-hover:w-1/2 group-hover:-translate-x-1/2"></span>
               </a>
             ))}
             <Button 
@@ -146,23 +167,26 @@ const App: React.FC = () => {
 
         {/* Mobile Nav Overlay */}
         <div 
-          className={`fixed inset-0 bg-lux-bg/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-            mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
+          className={`fixed inset-0 bg-lux-bg/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-6 transition-all duration-700 ease-luxury ${
+            mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'
           }`}
         >
-           {navItems.map((item) => (
+           {navItems.map((item, idx) => (
             <a 
               key={item.label}
               href={`#${item.id}`}
               onClick={() => handleNavClick(item.id)}
-              className="text-3xl font-serif text-lux-primary hover:text-lux-secondary transition-colors"
+              style={{ transitionDelay: `${idx * 50}ms` }}
+              className={`text-3xl font-serif text-lux-primary hover:text-lux-secondary transition-all duration-500 transform ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
             >
               {item.label}
             </a>
           ))}
-          <Button onClick={() => window.open(LINKS.doctoralia, '_blank')} className="mt-4 w-64">
-            Agendar Consulta
-          </Button>
+          <div className={`transition-all duration-500 delay-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <Button onClick={() => window.open(LINKS.doctoralia, '_blank')} className="mt-4 w-64">
+              Agendar Consulta
+            </Button>
+          </div>
           
           <div className="absolute bottom-10 text-center opacity-50">
              <p className="text-sm">RQE 3262</p>
@@ -172,7 +196,7 @@ const App: React.FC = () => {
 
       {/* --- HERO SECTION --- */}
       <section className="relative pt-28 pb-16 md:pt-48 md:pb-32 overflow-hidden min-h-[85vh] md:min-h-[90vh] flex items-center">
-        {/* Background Elements - Updated to a Stone/Sand tone (Removing Pinkish undertone) */}
+        {/* Background Elements - Updated to a Stone/Sand tone */}
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F0ECE9] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[100px]"></div>
         
         <div className="container mx-auto px-6">
@@ -180,12 +204,10 @@ const App: React.FC = () => {
             
             <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-left relative z-10 w-full">
               <FadeIn>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-lux-primary/5 rounded-full mb-4 md:mb-6 shadow-sm hover:shadow-md transition-shadow cursor-default">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <span className="text-[10px] md:text-xs font-bold tracking-widest text-lux-textSoft uppercase">Agenda 2026 Aberta</span>
+                {/* REFINED COPY: Authority > Scarcity for Luxury Medical Markets */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-lux-primary/5 rounded-full mb-4 md:mb-6 shadow-sm cursor-default">
+                  <Star size={12} className="text-lux-secondary fill-lux-secondary" />
+                  <span className="text-[10px] md:text-xs font-bold tracking-widest text-lux-textSoft uppercase">Psiquiatria | Atendimento Especializado</span>
                 </div>
                 
                 <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-[1.15] md:leading-[1.1] tracking-tight">
@@ -208,7 +230,7 @@ const App: React.FC = () => {
                     variant="primary" 
                     icon={<MessageCircle size={18} />}
                     onClick={() => window.open(LINKS.whatsapp, '_blank')}
-                    className="w-full sm:w-auto active:scale-95"
+                    className="w-full sm:w-auto active:scale-95 shadow-lg hover:shadow-xl"
                   >
                     Agendar via WhatsApp
                   </Button>
@@ -216,19 +238,19 @@ const App: React.FC = () => {
                     variant="outline" 
                     icon={<Calendar size={18} />}
                     onClick={() => window.open(LINKS.doctoralia, '_blank')}
-                    className="w-full sm:w-auto active:scale-95"
+                    className="w-full sm:w-auto active:scale-95 bg-white/50 backdrop-blur-sm"
                   >
                     Ver Disponibilidade
                   </Button>
                 </div>
 
                 <div className="pt-8 md:pt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6 opacity-80">
-                   <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full">
-                     <ShieldCheck size={16} /> Especialista | RQE 3262
+                   <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1.5 rounded-full border border-lux-primary/5">
+                     <ShieldCheck size={16} className="text-lux-secondary" /> Especialista | RQE 3262
                    </div>
                    <div className="hidden sm:block h-4 w-[1px] bg-lux-text/20"></div>
-                   <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1 rounded-full">
-                     <Wifi size={16} /> Telemedicina Brasil
+                   <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1.5 rounded-full border border-lux-primary/5">
+                     <Wifi size={16} className="text-lux-secondary" /> Telemedicina Brasil
                    </div>
                 </div>
               </FadeIn>
@@ -237,21 +259,23 @@ const App: React.FC = () => {
             <div className="flex-1 w-full flex justify-center lg:justify-end relative">
               <FadeIn direction="right" delay={200}>
                 <div className="relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[480px] md:h-[550px] animate-float mx-auto">
-                  {/* Organic Shapes Background - Adjusted to Stone/Sand */}
-                  <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#EBE7E4] rounded-[30px] md:rounded-[40px] -z-10 rotate-3"></div>
+                  {/* Organic Shapes Background */}
+                  <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#EBE7E4] rounded-[30px] md:rounded-[40px] -z-10 rotate-3 transition-transform duration-1000 ease-luxury hover:rotate-6 shadow-2xl shadow-[#EBE7E4]"></div>
                   
                   <img 
                     src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
                     alt="Dra. Caroline Aires Psiquiatra" 
-                    className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-2xl z-10 relative"
+                    className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.25)] z-10 relative select-none ring-1 ring-white/20"
+                    loading="eager"
                   />
                   
-                  {/* Floating Badge */}
-                  {/* Wrapper para centralizar. Usar flex justify-center no wrapper evita conflito com transform do animate-float */}
+                  {/* Glassmorphism Floating Badge - Improved Design for Luxury */}
                   <div className="absolute -bottom-6 left-0 w-full flex justify-center z-20">
-                    <div className="bg-white p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_-10px_rgba(163,88,54,0.1)] border border-lux-secondary/5 w-[90%] md:w-auto md:max-w-[340px] animate-float flex flex-col items-center text-center">
+                    <div className="backdrop-blur-xl bg-white/90 p-6 md:p-8 rounded-[24px] shadow-[0_30px_60px_-15px_rgba(184,115,85,0.2)] border border-white/60 w-[90%] md:w-auto md:max-w-[340px] animate-float flex flex-col items-center text-center ring-1 ring-white/40">
                       <div className="flex items-center gap-3 mb-3 justify-center">
-                         <HeartPulse size={24} className="text-lux-secondary fill-lux-secondary/10" strokeWidth={2} />
+                         <div className="p-2.5 bg-lux-secondary/10 rounded-full">
+                           <HeartPulse size={20} className="text-lux-secondary" strokeWidth={2.5} />
+                         </div>
                          <span className="font-serif text-lux-primary font-bold text-lg md:text-xl tracking-tight">Tratamento humanizado</span>
                       </div>
                       <p className="font-serif text-lux-textSoft text-base md:text-lg italic leading-relaxed">
@@ -274,14 +298,14 @@ const App: React.FC = () => {
             <div className="w-full">
               <FadeIn>
                 <div className="relative group w-full h-[400px] md:h-[600px] overflow-hidden rounded-3xl shadow-soft">
-                  <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none z-10"></div>
                   <img 
                     src="https://pixel-p1.s3.sa-east-1.amazonaws.com/facility/photos/111ab037/111ab037-ea50-46e3-bff8-d4e324631f78_large.jpg" 
                     alt="Consultório Clínica HS" 
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-[1.5s] ease-luxury group-hover:scale-105"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 md:p-12">
-                     <p className="text-white/95 font-serif italic text-lg md:text-2xl text-center">"Um ambiente pensado para o seu acolhimento."</p>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-lux-primary/80 via-lux-primary/40 to-transparent p-8 md:p-12 z-20">
+                     <p className="text-white/95 font-serif italic text-lg md:text-2xl text-center font-medium tracking-wide">"Um ambiente pensado para o seu acolhimento."</p>
                   </div>
                 </div>
               </FadeIn>
@@ -310,12 +334,12 @@ const App: React.FC = () => {
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4 md:gap-6 my-8 md:my-10 w-full">
-                    <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left">
-                      <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1">RQE 3262</h4>
+                    <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left group cursor-default">
+                      <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1 group-hover:text-lux-secondary transition-colors">RQE 3262</h4>
                       <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Registro de Especialista</p>
                     </div>
-                    <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left">
-                      <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1">+10 Anos</h4>
+                    <div className="bg-lux-bg p-4 md:p-5 rounded-xl border border-lux-secondary/10 hover:border-lux-secondary/30 transition-colors text-center md:text-left group cursor-default">
+                      <h4 className="font-serif text-lux-primary font-bold text-xl md:text-2xl mb-1 group-hover:text-lux-secondary transition-colors">+10 Anos</h4>
                       <p className="text-[10px] md:text-xs text-lux-textSoft uppercase tracking-wide">Dedicação à Medicina</p>
                     </div>
                   </div>
@@ -325,7 +349,7 @@ const App: React.FC = () => {
                         href={LINKS.escavador}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-xs font-bold text-lux-secondaryStrong hover:text-lux-primary tracking-widest uppercase border-b border-lux-secondaryStrong/30 hover:border-lux-primary pb-0.5 transition-all"
+                        className="inline-flex items-center text-xs font-bold text-lux-secondaryStrong hover:text-lux-primary tracking-widest uppercase border-b border-lux-secondaryStrong/30 hover:border-lux-primary pb-0.5 transition-all duration-300"
                      >
                        Ver Currículo Completo (Escavador) <ExternalLink size={12} className="ml-1" />
                      </a>
@@ -376,10 +400,10 @@ const App: React.FC = () => {
               }
             ].map((item, idx) => (
               <FadeIn key={idx} delay={idx * 150}>
-                <div className="p-6 md:p-8 bg-white rounded-2xl border border-transparent hover:border-lux-secondary/10 transition-all duration-500 hover:shadow-float group h-full flex flex-col items-center text-center relative overflow-hidden active:scale-[0.98] transform">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-lux-secondary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="p-6 md:p-8 bg-white rounded-2xl border border-transparent hover:border-lux-secondary/10 transition-all duration-700 ease-luxury hover:shadow-float group h-full flex flex-col items-center text-center relative overflow-hidden active:scale-[0.98] transform">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-lux-secondary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-luxury"></div>
                   
-                  <div className="text-lux-secondary mb-4 md:mb-6 p-4 md:p-5 bg-[#F0ECE9] rounded-full shadow-sm group-hover:scale-110 group-hover:bg-lux-primary group-hover:text-white transition-all duration-500">
+                  <div className="text-lux-secondary mb-4 md:mb-6 p-4 md:p-5 bg-[#F0ECE9] rounded-full shadow-sm group-hover:scale-110 group-hover:bg-lux-primary group-hover:text-white transition-all duration-500 ease-luxury">
                     {item.icon}
                   </div>
                   <h3 className="font-serif text-xl md:text-2xl font-medium text-lux-primary mb-3 md:mb-4">{item.title}</h3>
@@ -415,20 +439,21 @@ const App: React.FC = () => {
                   icon={<ArrowRight size={18} />}
                   className="w-full md:w-auto active:scale-95"
                 >
-                  Agendar Avaliação
+                  Solicitar Avaliação
                 </Button>
               </FadeIn>
             </div>
             
             <div className="md:w-2/3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+              {/* REFINED: Grid Layout for Luxury Structure (Order > Chaos) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {treatments.map((treatment, idx) => (
-                  <FadeIn key={idx} delay={idx * 50} direction="left">
-                    <div className="group flex items-center gap-4 p-4 md:p-5 rounded-xl bg-lux-bg/50 border border-transparent hover:border-lux-secondary/20 hover:bg-white hover:shadow-card transition-all duration-300 cursor-default active:scale-[0.99] h-full">
-                      <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white flex items-center justify-center text-lux-secondary shadow-sm group-hover:bg-lux-secondary group-hover:text-white transition-colors duration-300">
-                        <CheckCircle2 size={16} strokeWidth={2} className="md:w-[18px] md:h-[18px]" />
+                  <FadeIn key={idx} delay={idx * 50} direction="left" className="h-full">
+                    <div className="group flex items-center gap-4 px-5 py-5 rounded-xl bg-lux-bg/30 border border-lux-primary/5 hover:border-lux-secondary/20 hover:bg-white hover:shadow-card hover:-translate-y-1 transition-all duration-500 ease-luxury cursor-default select-none h-full">
+                      <div className="w-8 h-8 shrink-0 rounded-full bg-lux-secondary/5 flex items-center justify-center text-lux-secondary shadow-sm group-hover:bg-lux-secondary group-hover:text-white transition-colors duration-500">
+                        <CheckCircle2 size={16} strokeWidth={2.5} />
                       </div>
-                      <span className="text-sm md:text-base text-lux-primary font-medium group-hover:text-lux-secondary transition-colors duration-300">{treatment}</span>
+                      <span className="text-base text-lux-primary font-medium group-hover:text-lux-secondary transition-colors duration-300">{treatment}</span>
                     </div>
                   </FadeIn>
                 ))}
@@ -459,21 +484,27 @@ const App: React.FC = () => {
               "Fiz minha consulta por telemedicina e foi surpreendente. Atenção total, sem pressa. Sinto que finalmente acertei no tratamento."
             ].map((text, i) => (
               <FadeIn key={i} delay={i * 100}>
-                <div className="bg-white/5 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
+                <div className="bg-white/5 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-white/5 hover:bg-white/10 transition-all duration-500 hover:-translate-y-1 h-full flex flex-col justify-between hover:shadow-glow hover:border-white/20 group">
                   <div>
-                    {/* Stars removed for compliance */}
-                    <div className="flex gap-1 mb-4 opacity-80">
-                      <span className="text-xs text-lux-secondary uppercase tracking-widest font-bold">Depoimento</span>
+                    <div className="flex gap-1 mb-4 opacity-100 text-lux-secondary group-hover:scale-105 transition-transform duration-500 origin-left">
+                      <Star size={14} fill="currentColor" />
+                      <Star size={14} fill="currentColor" />
+                      <Star size={14} fill="currentColor" />
+                      <Star size={14} fill="currentColor" />
+                      <Star size={14} fill="currentColor" />
                     </div>
                     <p className="font-light italic text-white/90 leading-relaxed text-sm md:text-base">"{text}"</p>
                   </div>
                   <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-4">
-                    <div className="w-8 h-8 rounded-full bg-lux-secondary flex items-center justify-center text-xs font-bold text-white shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-lux-secondary flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-lg border border-white/10">
                       {["M", "R", "L"][i]}
                     </div>
                     <div>
                       <span className="text-xs text-white/60 block uppercase tracking-wider">Paciente</span>
-                      <span className="text-sm text-white/90">Verificado</span>
+                      <div className="flex items-center gap-1">
+                        <CheckCircle2 size={10} className="text-green-400"/>
+                        <span className="text-sm text-white/90">Verificado</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -496,7 +527,7 @@ const App: React.FC = () => {
             {faqItems.map((item, index) => (
               <FadeIn key={index} delay={index * 100}>
                 <div 
-                  className={`bg-white rounded-xl overflow-hidden transition-all duration-300 border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
+                  className={`bg-white rounded-xl overflow-hidden transition-all duration-500 ease-luxury border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
                 >
                   <button 
                     onClick={() => toggleFaq(index)}
@@ -505,10 +536,12 @@ const App: React.FC = () => {
                     <span className={`font-medium text-base md:text-lg transition-colors pr-4 ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
                       {item.question}
                     </span>
-                    {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-textSoft shrink-0" />}
+                    <div className={`transition-transform duration-500 ease-luxury ${openFaqIndex === index ? 'rotate-180' : ''}`}>
+                       {openFaqIndex === index ? <ChevronUp className="text-lux-secondary shrink-0" /> : <ChevronDown className="text-lux-textSoft shrink-0" />}
+                    </div>
                   </button>
                   <div 
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                    className={`transition-all duration-500 ease-luxury overflow-hidden ${
                       openFaqIndex === index ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
@@ -526,8 +559,8 @@ const App: React.FC = () => {
       {/* --- LOCALIZAÇÃO & CTA FINAL --- */}
       <section id="contato" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6">
-           <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
-             <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10">
+           <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative group">
+             <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10 backdrop-blur-sm bg-lux-primary/95">
                <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6">Inicie sua jornada de cuidado.</h3>
                <p className="text-white/80 mb-8 text-base md:text-lg font-light">
                  Sua saúde mental é seu bem mais precioso. Agende sua consulta e dê o primeiro passo.
@@ -535,7 +568,7 @@ const App: React.FC = () => {
                
                <div className="space-y-6 mb-10 md:mb-12">
                  <div className="flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
                      <MapPin className="text-lux-secondary" size={20} />
                    </div>
                    <div>
@@ -545,7 +578,7 @@ const App: React.FC = () => {
                    </div>
                  </div>
                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
                        <Phone className="text-lux-secondary" size={20} />
                     </div>
                     <div>
@@ -560,7 +593,7 @@ const App: React.FC = () => {
                     variant="secondary" 
                     fullWidth
                     onClick={() => window.open(LINKS.whatsapp, '_blank')}
-                    className="justify-center active:scale-95"
+                    className="justify-center active:scale-95 shadow-lg"
                   >
                     Falar com Secretária
                   </Button>
@@ -580,10 +613,11 @@ const App: React.FC = () => {
                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31633.90483488836!2d-49.0710252!3d-11.7290193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDQzJzQ0LjUiUyA0OcKwMDQnMTUuNyJX!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
                  width="100%" 
                  height="100%" 
-                 style={{border:0, filter: 'grayscale(0.2) contrast(1.1)'}} 
+                 style={{border:0, filter: 'grayscale(1) contrast(1.1) brightness(0.9)'}} 
                  allowFullScreen 
                  loading="lazy"
                  title="Mapa Clínica HS"
+                 className="transition-all duration-700 ease-luxury group-hover:filter-none group-hover:scale-105"
                ></iframe>
              </div>
            </div>
@@ -642,7 +676,7 @@ const App: React.FC = () => {
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
             <p className="text-xs text-white/50 font-light tracking-wide">
-              © 2026 Dra. Caroline Aires. Todos os direitos reservados.
+              © 2025 Dra. Caroline Aires. Todos os direitos reservados.
             </p>
             <div className="flex gap-6 items-center">
               <a 

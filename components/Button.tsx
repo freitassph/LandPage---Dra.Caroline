@@ -14,15 +14,15 @@ const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-8 py-4 rounded-lg transition-all duration-300 font-sans tracking-wide text-sm font-medium focus:outline-none disabled:opacity-50";
+  const baseStyles = "inline-flex items-center justify-center px-8 py-4 rounded-lg transition-all duration-500 ease-luxury font-sans tracking-wide text-sm font-medium focus:outline-none disabled:opacity-50 select-none";
   
   const variants = {
     // Primary: Now uses secondaryStrong for higher conversion/contrast
-    primary: "bg-lux-secondaryStrong text-white hover:bg-lux-secondary shadow-soft hover:shadow-lg transform hover:-translate-y-0.5",
+    primary: "bg-lux-secondaryStrong text-white hover:bg-lux-secondary shadow-soft hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-md",
     // Secondary: Elegant Deep Earth Brown
-    secondary: "bg-lux-primary text-white hover:bg-lux-secondaryStrong shadow-soft",
+    secondary: "bg-lux-primary text-white hover:bg-lux-secondaryStrong shadow-soft active:shadow-sm",
     // Outline: Uses standard secondary for borders
-    outline: "border border-lux-secondary text-lux-secondary hover:bg-lux-secondary hover:text-white bg-transparent",
+    outline: "border border-lux-secondary text-lux-secondary hover:bg-lux-secondary hover:text-white bg-transparent active:bg-lux-secondaryStrong",
     // Text: Subtle interaction
     text: "text-lux-primary underline decoration-lux-secondary decoration-1 underline-offset-4 hover:text-lux-secondary bg-transparent shadow-none px-0 py-1",
   };
