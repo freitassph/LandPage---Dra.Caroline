@@ -17,6 +17,36 @@ const LINKS = {
   escavador: "https://www.escavador.com/sobre/197407363/caroline-aires-de-santana"
 };
 
+// Componente isolado da Imagem Hero para reutilização responsiva
+const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
+  <div className={`relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[480px] md:h-[550px] animate-float mx-auto ${className}`}>
+    {/* Organic Shapes Background */}
+    <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#EBE7E4] rounded-[30px] md:rounded-[40px] -z-10 rotate-3 transition-transform duration-1000 ease-luxury hover:rotate-6 shadow-2xl shadow-[#EBE7E4]"></div>
+    
+    <img 
+      src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
+      alt="Dra. Caroline Aires Psiquiatra" 
+      className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.25)] z-10 relative select-none ring-1 ring-white/20"
+      loading="eager"
+    />
+    
+    {/* Glassmorphism Floating Badge - REDUZIDO E REFINADO */}
+    <div className="absolute -bottom-6 left-0 w-full flex justify-center z-20">
+      <div className="backdrop-blur-xl bg-white/90 p-4 md:p-5 rounded-[20px] shadow-[0_30px_60px_-15px_rgba(184,115,85,0.2)] border border-white/60 w-[85%] md:w-auto md:max-w-[300px] animate-float flex flex-col items-center text-center ring-1 ring-white/40">
+        <div className="flex items-center gap-2 mb-2 justify-center">
+           <div className="p-2 bg-lux-secondary/10 rounded-full">
+             <HeartPulse size={16} className="text-lux-secondary" strokeWidth={2.5} />
+           </div>
+           <span className="font-serif text-lux-primary font-bold text-base md:text-lg tracking-tight">Tratamento humanizado</span>
+        </div>
+        <p className="font-serif text-lux-textSoft text-sm md:text-base italic leading-relaxed">
+          "Ciência e humanização."
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -105,10 +135,10 @@ const App: React.FC = () => {
     <div className="min-h-screen font-sans text-lux-text bg-lux-bg overflow-x-hidden selection:bg-lux-secondary selection:text-white">
       
       {/* --- BACK TO TOP BUTTON --- */}
-      {/* Z-Index aumentado para 60 para ficar acima do bg-noise (50) */}
+      {/* Updated Color to match Design System (Secondary Strong) */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-24 right-6 z-[60] bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondary p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondary hover:text-white hover:-translate-y-1 ${
+        className={`fixed bottom-24 right-6 z-[60] bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondaryStrong p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondaryStrong hover:text-white hover:-translate-y-1 ${
           showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
         aria-label="Voltar ao topo"
@@ -117,12 +147,12 @@ const App: React.FC = () => {
       </button>
 
       {/* --- FLOATING WHATSAPP --- */}
-      {/* Z-Index aumentado para 60 */}
+      {/* Updated Color to match Design System (Secondary Strong) replacing the standard green */}
       <a 
         href={LINKS.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-[60] flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-float hover:scale-105 transition-all duration-300 ease-luxury hover:shadow-[#25D366]/40 group active:scale-95"
+        className="fixed bottom-6 right-6 z-[60] flex items-center justify-center w-14 h-14 bg-lux-secondaryStrong text-white rounded-full shadow-float hover:scale-105 transition-all duration-300 ease-luxury hover:bg-lux-secondary hover:shadow-lux-secondary/40 group active:scale-95"
         aria-label="Falar no WhatsApp"
       >
         <span className="absolute right-16 bg-white/95 backdrop-blur-sm text-lux-text text-xs px-3 py-1.5 rounded-lg shadow-soft opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap hidden sm:block border border-lux-primary/5 translate-x-2 group-hover:translate-x-0">
@@ -219,14 +249,19 @@ const App: React.FC = () => {
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F0ECE9] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[100px]"></div>
         
         <div className="container mx-auto px-6">
-          <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+          {/* 
+            UPDATE UX/UI: Changed from flex-col-reverse to flex-col on mobile.
+            Reason: On mobile/tablet, the Value Proposition (Text) should be read BEFORE seeing the image 
+            to reduce bounce rate and establish context immediately.
+          */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             
             <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-left relative z-10 w-full">
               <FadeIn>
                 {/* REFINED COPY: Authority > Scarcity for Luxury Medical Markets */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-lux-primary/5 rounded-full mb-4 md:mb-6 shadow-sm cursor-default">
                   <Star size={12} className="text-lux-secondary fill-lux-secondary" />
-                  <span className="text-xs font-bold tracking-widest text-lux-textSoft uppercase">Psiquiatria | Atendimento Especializado</span>
+                  <span className="text-xs font-bold tracking-widest text-lux-textSoft uppercase">PSIQUIATRIA ESPECIALIZADA</span>
                 </div>
                 
                 <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-[1.15] md:leading-[1.1] tracking-tighter">
@@ -243,6 +278,15 @@ const App: React.FC = () => {
                 <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance">
                   Um espaço seguro para transformar angústia em autonomia. Diagnóstico preciso e plano terapêutico individualizado na Clínica HS ou via Telemedicina.
                 </p>
+
+                {/* 
+                  MOBILE IMAGE PLACEMENT:
+                  Inserida aqui para aparecer ANTES dos botões em telas pequenas (Mobile First UX)
+                  Oculta em Desktop (lg:hidden)
+                */}
+                <div className="block lg:hidden py-6">
+                  <HeroImage />
+                </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 pt-6 md:pt-8 justify-center lg:justify-start w-full sm:w-auto">
                   <Button 
@@ -275,34 +319,13 @@ const App: React.FC = () => {
               </FadeIn>
             </div>
 
-            <div className="flex-1 w-full flex justify-center lg:justify-end relative">
+            {/* 
+              DESKTOP IMAGE PLACEMENT:
+              Visível apenas em telas grandes (hidden lg:flex)
+            */}
+            <div className="hidden lg:flex flex-1 w-full justify-center lg:justify-end relative">
               <FadeIn direction="right" delay={200}>
-                <div className="relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[480px] md:h-[550px] animate-float mx-auto">
-                  {/* Organic Shapes Background */}
-                  <div className="absolute top-6 -right-6 md:top-8 md:-right-8 w-full h-full bg-[#EBE7E4] rounded-[30px] md:rounded-[40px] -z-10 rotate-3 transition-transform duration-1000 ease-luxury hover:rotate-6 shadow-2xl shadow-[#EBE7E4]"></div>
-                  
-                  <img 
-                    src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
-                    alt="Dra. Caroline Aires Psiquiatra" 
-                    className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.25)] z-10 relative select-none ring-1 ring-white/20"
-                    loading="eager"
-                  />
-                  
-                  {/* Glassmorphism Floating Badge - Improved Design for Luxury */}
-                  <div className="absolute -bottom-6 left-0 w-full flex justify-center z-20">
-                    <div className="backdrop-blur-xl bg-white/90 p-6 md:p-8 rounded-[24px] shadow-[0_30px_60px_-15px_rgba(184,115,85,0.2)] border border-white/60 w-[90%] md:w-auto md:max-w-[340px] animate-float flex flex-col items-center text-center ring-1 ring-white/40">
-                      <div className="flex items-center gap-3 mb-3 justify-center">
-                         <div className="p-2.5 bg-lux-secondary/10 rounded-full">
-                           <HeartPulse size={20} className="text-lux-secondary" strokeWidth={2.5} />
-                         </div>
-                         <span className="font-serif text-lux-primary font-bold text-lg md:text-xl tracking-tight">Tratamento humanizado</span>
-                      </div>
-                      <p className="font-serif text-lux-textSoft text-base md:text-lg italic leading-relaxed">
-                        "Ciência e humanização."
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <HeroImage />
               </FadeIn>
             </div>
           </div>
@@ -693,20 +716,18 @@ const App: React.FC = () => {
             </div>
           </div>
           
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-            <p className="text-xs text-white/50 font-light tracking-wide">
-              © 2026 Dra. Caroline Aires. Todos os direitos reservados.
-            </p>
-            <div className="flex gap-6 items-center">
-              <a 
-                href={LINKS.instagram} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="text-white/70 hover:text-lux-secondary transition-colors flex items-center gap-2 text-xs uppercase tracking-widest font-medium"
-              >
-                <Instagram size={16} /> Instagram
-              </a>
-            </div>
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-center items-center gap-6 text-center">
+             <div className="flex flex-col items-center gap-1">
+               <span className="text-[10px] text-white/40 tracking-[0.2em] uppercase font-light">DESIGNED FOR EXCELLENCE</span>
+               <a 
+                 href="https://instagram.com/freitas.lab" 
+                 target="_blank" 
+                 rel="noreferrer"
+                 className="text-xs text-white/60 hover:text-lux-secondary transition-colors font-medium tracking-wide lowercase"
+               >
+                 @freitas.lab
+               </a>
+             </div>
           </div>
         </div>
       </footer>
