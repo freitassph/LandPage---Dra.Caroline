@@ -3,7 +3,7 @@ import {
   Menu, X, MapPin, Calendar, Clock, Brain, 
   Quote, ExternalLink, ArrowRight, MessageCircle, 
   Wifi, ShieldCheck, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
-  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp
+  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp, Video, Lock
 } from 'lucide-react';
 import FadeIn from './components/FadeIn';
 import Button from './components/Button';
@@ -12,7 +12,7 @@ import Button from './components/Button';
 const LINKS = {
   whatsapp: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Caroline.",
   doctoralia: "https://www.doctoralia.com.br/caroline-aires-henrique-de-santana/psiquiatra/gurupi",
-  maps: "https://www.google.com/maps/search/?api=1&query=Clínica+HS+Gurupi",
+  // Maps removido propositalmente nesta fase de transição
   instagram: "https://instagram.com/dra.carolineaireshs",
   escavador: "https://www.escavador.com/sobre/197407363/caroline-aires-de-santana"
 };
@@ -25,7 +25,7 @@ const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
     
     <img 
       src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
-      alt="Dra. Caroline Aires Psiquiatra" 
+      alt="Dra. Caroline Aires - Psiquiatra Especialista em Ansiedade e TDAH Online e em Campinas" 
       className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.25)] z-10 relative select-none ring-1 ring-white/20"
       loading="eager"
     />
@@ -97,7 +97,7 @@ const App: React.FC = () => {
     { label: 'Sobre', id: 'sobre' },
     { label: 'Diferenciais', id: 'diferenciais' },
     { label: 'Tratamentos', id: 'tratamentos' },
-    { label: 'Localização', id: 'contato' },
+    { label: 'Atendimento', id: 'contato' },
     { label: 'Dúvidas', id: 'faq' },
   ];
 
@@ -115,19 +115,31 @@ const App: React.FC = () => {
   const faqItems = [
     {
       question: "Atende por planos de saúde?",
-      answer: "Para garantir a qualidade e a duração estendida das consultas, o atendimento é exclusivamente particular. Emitimos nota fiscal para solicitação de reembolso junto ao seu convênio."
+      answer: "Para garantir a qualidade, a duração estendida das consultas e a pontualidade, o atendimento é exclusivamente particular. Emitimos nota fiscal para solicitação de reembolso junto ao seu convênio e para fins de Imposto de Renda."
     },
     {
-      question: "Como funciona a Telemedicina?",
-      answer: "A consulta online tem a mesma duração e validade da presencial. A receita digital é enviada via SMS/E-mail e aceita em farmácias de todo o Brasil. A videochamada ocorre por plataforma segura e criptografada."
+      question: "Qual a faixa etária de atendimento?",
+      answer: "O atendimento é focado exclusivamente em adultos (a partir de 18 anos) e idosos. Isso permite um aprofundamento maior nas patologias e contextos de vida específicos destas etapas."
+    },
+    {
+      question: "Como funciona a Telemedicina e a Receita?",
+      answer: "A consulta online ocorre via plataforma segura e criptografada. As receitas digitais (com certificação ICP-Brasil) são enviadas por SMS/E-mail e aceitas em farmácias de todo o Brasil, inclusive para medicações controladas (receitas branca e azul)."
     },
     {
       question: "Qual a duração da consulta?",
-      answer: "A primeira consulta tem duração média de 60 a 90 minutos, permitindo uma anamnese detalhada, escuta ativa e planejamento terapêutico completo."
+      answer: "A primeira consulta tem duração média de 60 minutos, permitindo uma anamnese detalhada, escuta ativa e planejamento terapêutico completo. As consultas de seguimento são planejadas conforme a necessidade clínica."
     },
     {
       question: "Realiza retorno?",
-      answer: "Sim, o retorno é avaliado caso a caso dependendo da necessidade clínica do paciente e do plano de tratamento proposto."
+      answer: "O retorno é uma ferramenta médica avaliada caso a caso. Quando necessário para avaliação de resposta medicamentosa imediata, é concedido dentro de 30 dias. Em tratamentos de manutenção, as consultas são cobradas individualmente."
+    },
+    {
+      question: "Vocês emitem laudos e atestados?",
+      answer: "Sim. A emissão de laudos, relatórios para INSS, atestados e outros documentos médicos é realizada mediante avaliação clínica detalhada durante a consulta, sempre prezando pela ética e veracidade técnica."
+    },
+    {
+      question: "Quais as formas de pagamento?",
+      answer: "O pagamento pode ser realizado via PIX ou Cartão de Crédito. Para valores atualizados e agendamento, por favor, entre em contato via WhatsApp ou verifique a agenda na Doctoralia."
     }
   ];
 
@@ -173,11 +185,10 @@ const App: React.FC = () => {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="z-50 relative">
-            <h1 className="font-serif text-lg md:text-xl lg:text-2xl font-bold text-lux-primary tracking-tight cursor-pointer flex flex-col md:flex-row md:items-center gap-1 md:gap-3" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-              Dra. Caroline Aires 
-              <span className="hidden md:inline w-px h-6 bg-lux-primary/20"></span>
-              <span className="font-sans text-[11px] md:text-xs font-medium text-lux-secondary tracking-widest uppercase">
-                Psiquiatra
+            <h1 className="font-serif text-lg md:text-xl lg:text-2xl font-bold text-lux-primary tracking-tight cursor-pointer flex flex-col items-start gap-0.5" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+              Dra. Caroline Aires
+              <span className="font-sans text-[9px] md:text-[10px] font-medium text-lux-secondary tracking-widest uppercase">
+                Psiquiatra • Online & Campinas
               </span>
             </h1>
           </div>
@@ -276,7 +287,7 @@ const App: React.FC = () => {
                 </h2>
                 
                 <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance">
-                  Um espaço seguro para transformar angústia em autonomia. Diagnóstico preciso e plano terapêutico individualizado na Clínica HS ou via Telemedicina.
+                  Um espaço seguro para transformar angústia em autonomia. Diagnóstico preciso e plano terapêutico individualizado com atendimento Online para todo o Brasil e Presencial em Campinas.
                 </p>
 
                 {/* 
@@ -313,7 +324,7 @@ const App: React.FC = () => {
                    </div>
                    <div className="hidden sm:block h-4 w-[1px] bg-lux-text/20"></div>
                    <div className="text-xs font-medium text-lux-text flex items-center gap-2 bg-white/50 px-3 py-1.5 rounded-full border border-lux-primary/5">
-                     <Wifi size={16} className="text-lux-secondary" /> Telemedicina Brasil
+                     <MapPin size={16} className="text-lux-secondary" /> Online & Campinas
                    </div>
                 </div>
               </FadeIn>
@@ -343,7 +354,7 @@ const App: React.FC = () => {
                   <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none z-10"></div>
                   <img 
                     src="https://pixel-p1.s3.sa-east-1.amazonaws.com/facility/photos/111ab037/111ab037-ea50-46e3-bff8-d4e324631f78_large.jpg" 
-                    alt="Consultório Clínica HS" 
+                    alt="Ambiente de acolhimento e escuta" 
                     className="w-full h-full object-cover object-center transition-transform duration-[1.5s] ease-luxury group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-lux-primary/80 via-lux-primary/40 to-transparent p-8 md:p-12 z-20">
@@ -365,7 +376,7 @@ const App: React.FC = () => {
                   
                   <div className="space-y-4 md:space-y-6 text-lux-textSoft leading-relaxed font-light text-base md:text-lg text-justify">
                     <p>
-                      Médica Psiquiatra, idealizadora da Clínica HS e apaixonada por entender a mente humana. 
+                      Médica Psiquiatra com atuação Online e em Campinas-SP, idealizadora de um conceito de atendimento que prioriza a escuta e o entendimento profundo da mente humana.
                     </p>
                     <p>
                       Minha prática é fundamentada na <strong className="text-lux-primary font-medium">Psiquiatria Baseada em Evidência</strong>, que integra a melhor evidência científica disponível à experiência clínica e aos valores e preferências de cada paciente.
@@ -415,7 +426,7 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6">
           <FadeIn>
             <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
-              <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase mb-2 block">Por que escolher a Clínica HS?</span>
+              <span className="text-lux-secondary text-xs font-bold tracking-widest uppercase mb-2 block">Nossos Pilares</span>
               <h2 className="font-serif text-3xl md:text-4xl text-lux-primary mb-4 tracking-tight">Medicina Acolhedora e Humanizada</h2>
               <p className="text-lux-textSoft font-light leading-relaxed px-4">
                 Mais do que diagnósticos, oferecemos um porto seguro. Uma prática médica que valoriza sua história, respeita seu tempo e constrói o tratamento junto com você.
@@ -515,14 +526,14 @@ const App: React.FC = () => {
             <div className="text-center mb-12 md:mb-16">
                <Quote size={40} className="text-lux-secondary mx-auto mb-4 opacity-50 md:w-12 md:h-12" />
                <h2 className="font-serif text-3xl md:text-4xl text-white mb-2 tracking-tight">Histórias de Transformação</h2>
-               <p className="text-white/80 text-sm md:text-base">O que nossos pacientes dizem sobre a experiência HS.</p>
+               <p className="text-white/80 text-sm md:text-base">O que nossos pacientes dizem sobre a experiência.</p>
             </div>
           </FadeIn>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
               "A Dra. Caroline é de uma sensibilidade ímpar. Me senti acolhida desde o primeiro momento. O tratamento mudou minha relação com a ansiedade.",
-              "Profissional excelente, atualizada e muito humana. A estrutura da clínica é linda e nos deixa muito à vontade. Recomendo de olhos fechados.",
+              "Profissional excelente, atualizada e muito humana. A consulta foi extremamente esclarecedora e nos deixa muito à vontade. Recomendo de olhos fechados.",
               "Fiz minha consulta por telemedicina e foi surpreendente. Atenção total, sem pressa. Sinto que finalmente acertei no tratamento."
             ].map((text, i) => (
               <FadeIn key={i} delay={i * 100}>
@@ -556,76 +567,98 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- LOCALIZAÇÃO & CTA FINAL (MOVIDO PARA CIMA) --- */}
-      <section id="contato" className="py-16 md:py-24 bg-white">
+      {/* --- LOCALIZAÇÃO: HUB DE ATENDIMENTO (NOVA VERSÃO) --- */}
+      <section id="contato" className="py-16 md:py-24 bg-lux-bg relative">
         <div className="container mx-auto px-6">
-           <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative group">
-             <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10 backdrop-blur-sm bg-lux-primary/95">
-               <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6 tracking-tight">Inicie sua jornada de cuidado.</h3>
-               <p className="text-white/80 mb-8 text-base md:text-lg font-light">
-                 Sua saúde mental é seu bem mais precioso. Agende sua consulta e dê o primeiro passo.
-               </p>
-               
-               <div className="space-y-6 mb-10 md:mb-12">
-                 <div className="flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
-                     <MapPin className="text-lux-secondary" size={20} />
-                   </div>
-                   <div>
-                     <h4 className="font-bold text-lg">Clínica HS</h4>
-                     <p className="text-white/80 text-sm">Gurupi - TO</p>
-                     <a href={LINKS.maps} target="_blank" rel="noreferrer" className="text-lux-secondary text-sm underline mt-1 block hover:text-white transition-colors">Ver no mapa</a>
-                   </div>
-                 </div>
-                 <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/5">
-                       <Phone className="text-lux-secondary" size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg">Contato</h4>
-                      <p className="text-white/80 text-sm">+55 63 3301-0307</p>
-                    </div>
-                 </div>
-               </div>
+          <FadeIn>
+            <div className="text-center mb-12">
+               <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-4 tracking-tight">Onde estamos</h2>
+               <p className="text-lux-textSoft max-w-xl mx-auto">Escolha a modalidade de atendimento ideal para o seu momento.</p>
+            </div>
+          </FadeIn>
 
-               <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    variant="secondary" 
-                    fullWidth
-                    onClick={() => window.open(LINKS.whatsapp, '_blank')}
-                    className="justify-center active:scale-95 shadow-lg"
-                  >
-                    Falar com Secretária
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    fullWidth 
-                    className="border-white/20 text-white hover:bg-white hover:text-lux-primary justify-center active:scale-95"
-                    onClick={() => window.open(LINKS.doctoralia, '_blank')}
-                  >
-                    Doctoralia
-                  </Button>
-               </div>
-             </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
              
-             <div className="md:w-1/2 h-64 md:h-auto relative bg-[#E6E1DC]">
-               <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31633.90483488836!2d-49.0710252!3d-11.7290193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDQzJzQ0LjUiUyA0OcKwMDQnMTUuNyJX!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
-                 width="100%" 
-                 height="100%" 
-                 style={{border:0, filter: 'grayscale(1) contrast(1.1) brightness(0.9)'}} 
-                 allowFullScreen 
-                 loading="lazy"
-                 title="Mapa Clínica HS"
-                 className="transition-all duration-700 ease-luxury group-hover:filter-none group-hover:scale-105"
-               ></iframe>
-             </div>
-           </div>
+             {/* CARD 1: TELEMEDICINA (ATIVO) */}
+             <FadeIn delay={100} className="h-full">
+               <div className="relative bg-white rounded-3xl p-8 md:p-10 border border-lux-secondary shadow-float flex flex-col h-full overflow-hidden group">
+                  {/* Glowing Effect Background */}
+                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-lux-secondary/10 rounded-full blur-3xl group-hover:bg-lux-secondary/20 transition-colors duration-700"></div>
+                  
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between mb-6">
+                       <div className="w-14 h-14 bg-lux-secondary/10 rounded-2xl flex items-center justify-center text-lux-secondary border border-lux-secondary/20">
+                          <Video size={28} strokeWidth={1.5} />
+                       </div>
+                       <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200 uppercase tracking-wider flex items-center gap-1.5">
+                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                         Disponível
+                       </span>
+                    </div>
+
+                    <h3 className="font-serif text-2xl md:text-3xl text-lux-primary font-bold mb-3">Atendimento Nacional</h3>
+                    <p className="text-lux-textSoft mb-8 leading-relaxed text-sm md:text-base flex-grow">
+                      Consultas via vídeo com a mesma profundidade e acolhimento do presencial. Receita digital válida em todo o território nacional enviada via SMS/E-mail.
+                    </p>
+
+                    <div className="space-y-3 mt-auto">
+                      <Button 
+                        variant="primary" 
+                        fullWidth 
+                        onClick={() => window.open(LINKS.whatsapp, '_blank')}
+                        className="shadow-lg justify-center group-hover:-translate-y-1"
+                        icon={<MessageCircle size={18} />}
+                      >
+                        Agendar via WhatsApp
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        fullWidth 
+                        onClick={() => window.open(LINKS.doctoralia, '_blank')}
+                        className="justify-center border-lux-primary/10 hover:bg-lux-primary/5 text-lux-textSoft"
+                      >
+                        Agendar via Doctoralia
+                      </Button>
+                    </div>
+                  </div>
+               </div>
+             </FadeIn>
+
+             {/* CARD 2: CAMPINAS (TEASER) */}
+             <FadeIn delay={300} className="h-full">
+                <div className="relative bg-[#EAE8E6] rounded-3xl p-8 md:p-10 border border-transparent flex flex-col h-full overflow-hidden grayscale-[0.2]">
+                   {/* Frosted/Unavailable overlay hint */}
+                   
+                   <div className="relative z-10 flex flex-col h-full">
+                     <div className="flex items-center justify-between mb-6">
+                        <div className="w-14 h-14 bg-white/50 rounded-2xl flex items-center justify-center text-lux-textSoft/70 border border-white/60">
+                           <MapPin size={28} strokeWidth={1.5} />
+                        </div>
+                        <span className="bg-lux-primary/10 text-lux-primary/70 text-xs font-bold px-3 py-1 rounded-full border border-lux-primary/5 uppercase tracking-wider flex items-center gap-1.5">
+                           <Lock size={10} /> Em Breve
+                        </span>
+                     </div>
+
+                     <h3 className="font-serif text-2xl md:text-3xl text-lux-primary/80 font-bold mb-3">Campinas - SP</h3>
+                     <p className="text-lux-textSoft/80 mb-6 leading-relaxed text-sm md:text-base">
+                       Um novo espaço de acolhimento está sendo preparado cuidadosamente para você no coração de Campinas.
+                     </p>
+
+                     <div className="mt-auto pt-6 border-t border-lux-primary/5">
+                        <p className="text-xs text-lux-textSoft/60 uppercase tracking-widest text-center">
+                           Aguarde novidades
+                        </p>
+                     </div>
+                   </div>
+                </div>
+             </FadeIn>
+
+          </div>
         </div>
       </section>
 
       {/* --- FAQ SECTION (MOVIDO PARA BAIXO) --- */}
-      <section id="faq" className="py-16 md:py-24 bg-lux-bg">
+      <section id="faq" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6 max-w-3xl">
           <FadeIn>
              <div className="text-center mb-10 md:mb-12">
@@ -637,7 +670,7 @@ const App: React.FC = () => {
             {faqItems.map((item, index) => (
               <FadeIn key={index} delay={index * 100}>
                 <div 
-                  className={`bg-white rounded-xl overflow-hidden transition-all duration-500 ease-luxury border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
+                  className={`bg-lux-bg rounded-xl overflow-hidden transition-all duration-500 ease-luxury border ${openFaqIndex === index ? 'border-lux-secondary/30 shadow-card' : 'border-transparent shadow-sm hover:shadow-md'}`}
                 >
                   <button 
                     onClick={() => toggleFaq(index)}
@@ -676,34 +709,25 @@ const App: React.FC = () => {
                 <strong className="font-bold text-white">Médica Psiquiatra</strong>
                 <span className="block mt-2 text-xs text-white/60 uppercase tracking-widest leading-relaxed">
                   CRM-TO 7024 - MÉDICO<br/>
-                  Psiquiatria - RQE-TO 3262
-                </span>
-                
-                <span className="block mt-6">
-                   <strong className="font-bold text-white">Clinica HS | Gurupi-TO</strong>
-                </span>
-                
-                <span className="block mt-2 text-xs text-white/60 uppercase tracking-widest leading-relaxed">
-                   Diretor Técnico-Médico: <br/> 
-                   Caroline Aires Henrique de Santana <br/>
-                   CRM-TO 7024 - MÉDICO <br/>
-                   Psiquiatria - RQE-TO 3262
+                  Psiquiatria - RQE-TO 3262<br/><br/>
+                  Atendimento Online<br/>
+                  & Campinas - SP
                 </span>
               </div>
             </div>
             
             <div>
-              <h4 className="font-bold text-lux-bg mb-4 md:mb-6 text-lg">Navegação</h4>
-              <ul className="space-y-3 md:space-y-4 text-sm text-white/80">
-                <li><a href="#sobre" className="hover:text-lux-secondary transition-colors block py-1">Sobre Mim</a></li>
-                <li><a href="#diferenciais" className="hover:text-lux-secondary transition-colors block py-1">Nossa Filosofia</a></li>
-                <li><a href="#tratamentos" className="hover:text-lux-secondary transition-colors block py-1">Tratamentos</a></li>
-                <li><a href={LINKS.doctoralia} target="_blank" rel="noreferrer" className="hover:text-lux-secondary transition-colors block py-1">Agendar Consulta</a></li>
+              <h4 className="font-serif text-lg md:text-xl font-bold text-lux-bg mb-4 md:mb-6">Navegação</h4>
+              <ul className="space-y-1 text-sm text-white/80">
+                <li><a href="#sobre" className="hover:text-lux-secondary transition-colors block">Sobre Mim</a></li>
+                <li><a href="#diferenciais" className="hover:text-lux-secondary transition-colors block">Nossa Filosofia</a></li>
+                <li><a href="#tratamentos" className="hover:text-lux-secondary transition-colors block">Tratamentos</a></li>
+                <li><a href={LINKS.doctoralia} target="_blank" rel="noreferrer" className="hover:text-lux-secondary transition-colors block">Agendar Consulta</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-bold text-lux-bg mb-4 md:mb-6 text-lg">Importante</h4>
+              <h4 className="font-serif text-lg md:text-xl font-bold text-lux-bg mb-4 md:mb-6">Importante</h4>
               <div className="bg-white/5 border border-white/10 p-5 md:p-6 rounded-lg flex gap-4 items-start hover:bg-white/10 transition-colors group">
                 <AlertCircle size={20} className="text-lux-secondaryStrong shrink-0 mt-0.5 group-hover:text-white transition-colors" />
                 <div className="space-y-2">
