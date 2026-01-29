@@ -4,7 +4,8 @@ import {
   Menu, X, MapPin, Calendar, Clock, Brain, 
   Quote, ExternalLink, ArrowRight, MessageCircle, 
   Wifi, ShieldCheck, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
-  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp, Loader2
+  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp, Loader2,
+  Lock
 } from 'lucide-react';
 import FadeIn from './components/FadeIn';
 import Button from './components/Button';
@@ -76,6 +77,29 @@ const App: React.FC = () => {
       document.body.style.overflow = 'unset';
     }
     return () => { document.body.style.overflow = 'unset'; };
+  }, [isBookingModalOpen]);
+
+  // DOCTORALIA WIDGET SCRIPT LOADER
+  // Injeta o script oficial apenas quando o modal abre para garantir renderização correta
+  useEffect(() => {
+    if (isBookingModalOpen) {
+      // Remove script anterior se existir para forçar recarregamento do widget
+      const existingScript = document.getElementById('zl-widget-s');
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = "//platform.doctoralia.com.br/content/widgets-embed.js";
+      script.id = "zl-widget-s";
+      
+      document.body.appendChild(script);
+
+      return () => {
+        // Opcional: limpeza
+      };
+    }
   }, [isBookingModalOpen]);
 
   const scrollToTop = () => {
@@ -174,7 +198,7 @@ const App: React.FC = () => {
         <MessageCircle size={28} fill="white" className="text-white relative z-10" />
       </a>
 
-      {/* --- BOOKING MODAL (POPUP) --- */}
+      {/* --- BOOKING MODAL (POPUP WITH WIDGET) --- */}
       {isBookingModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           {/* Backdrop with blur */}
@@ -184,9 +208,9 @@ const App: React.FC = () => {
           ></div>
 
           {/* Modal Content */}
-          <div className="relative w-full max-w-5xl h-[90vh] md:h-[85vh] bg-[#FAF9F6] rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-fade-in-up ring-1 ring-white/20">
+          <div className="relative w-full max-w-4xl h-[85vh] md:h-[90vh] bg-[#FAF9F6] rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-fade-in-up ring-1 ring-white/20">
             {/* Modal Header */}
-            <div className="bg-lux-primary text-white p-4 flex items-center justify-between shrink-0">
+            <div className="bg-lux-primary text-white p-4 flex items-center justify-between shrink-0 z-20">
               <div className="flex items-center gap-3">
                  <div className="p-1.5 bg-white/10 rounded-lg">
                     <Calendar size={18} className="text-lux-secondary" />
@@ -202,24 +226,41 @@ const App: React.FC = () => {
               </button>
             </div>
 
-            {/* Iframe Container */}
-            <div className="flex-1 relative bg-white w-full">
-              {/* Loader placeholder while iframe loads */}
-              <div className="absolute inset-0 flex items-center justify-center z-0">
-                <Loader2 className="animate-spin text-lux-secondary" size={40} />
-              </div>
-              
-              <iframe 
-                src={LINKS.doctoralia} 
-                title="Agendamento Doctoralia"
-                className="absolute inset-0 w-full h-full z-10 border-none"
-                allow="camera; microphone; geolocation"
-              ></iframe>
+            {/* Widget Container */}
+            <div className="flex-1 relative bg-white w-full overflow-y-auto overflow-x-hidden">
+               {/* Container do Widget Doctoralia */}
+               <div className="min-h-full flex flex-col items-center justify-start p-4 md:p-8">
+                 
+                 {/* Fallback Loader (aparece antes do widget carregar) */}
+                 <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none opacity-50">
+                    <Loader2 className="animate-spin text-lux-secondary mb-2" size={32} />
+                    <p className="text-sm text-lux-textSoft">Carregando agenda...</p>
+                 </div>
+
+                 {/* O Link Abaixo é transformado automaticamente no Widget pelo Script injetado no useEffect */}
+                 <div className="relative z-10 w-full flex justify-center bg-white">
+                   <a 
+                      id="zl-url" 
+                      className="zl-url" 
+                      href="https://www.doctoralia.com.br/caroline-aires-henrique-de-santana/psiquiatra/gurupi" 
+                      rel="nofollow" 
+                      data-zlw-type="big_with_calendar" 
+                      data-zlw-opinion="false" 
+                      data-zlw-hide-branding="true" 
+                      data-zlw-saas-only="true"
+                    >
+                      Dra. Caroline Aires Henrique de Santana - Doctoralia.com.br
+                    </a>
+                 </div>
+               </div>
             </div>
             
-            {/* Modal Footer - Mobile Hint */}
-            <div className="bg-lux-bg border-t border-lux-primary/5 p-3 text-center text-xs text-lux-textSoft shrink-0">
-              Ambiente seguro integrado com Doctoralia.
+            {/* Modal Footer */}
+            <div className="bg-lux-bg border-t border-lux-primary/5 p-3 text-center text-xs text-lux-textSoft shrink-0 z-20">
+              <div className="flex items-center justify-center gap-2">
+                <Lock size={10} />
+                <span>Ambiente seguro Doctoralia. Seus dados estão protegidos.</span>
+              </div>
             </div>
           </div>
         </div>
