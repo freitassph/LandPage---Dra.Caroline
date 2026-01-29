@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, MapPin, Calendar, Clock, Brain, 
   Quote, ExternalLink, ArrowRight, MessageCircle, 
   Wifi, ShieldCheck, ChevronDown, ChevronUp, AlertCircle, HeartPulse,
-  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp
+  Phone, CheckCircle2, Instagram, Sparkles, Star, ArrowUp, Loader2
 } from 'lucide-react';
 import FadeIn from './components/FadeIn';
 import Button from './components/Button';
@@ -52,6 +53,9 @@ const App: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  
+  // Novo estado para o Modal do Doctoralia
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   // Scroll Listener
   useEffect(() => {
@@ -63,6 +67,16 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Bloquear scroll do body quando modal abrir
+  useEffect(() => {
+    if (isBookingModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isBookingModalOpen]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -135,7 +149,6 @@ const App: React.FC = () => {
     <div className="min-h-screen font-sans text-lux-text bg-lux-bg overflow-x-hidden selection:bg-lux-secondary selection:text-white">
       
       {/* --- BACK TO TOP BUTTON --- */}
-      {/* Updated Color to match Design System (Secondary Strong) */}
       <button
         onClick={scrollToTop}
         className={`fixed bottom-24 right-6 z-[60] bg-white/80 backdrop-blur-md border border-lux-secondary/20 text-lux-secondaryStrong p-3 rounded-full shadow-lg transition-all duration-500 ease-luxury hover:bg-lux-secondaryStrong hover:text-white hover:-translate-y-1 ${
@@ -147,7 +160,6 @@ const App: React.FC = () => {
       </button>
 
       {/* --- FLOATING WHATSAPP --- */}
-      {/* Updated Color to match Design System (Secondary Strong) replacing the standard green */}
       <a 
         href={LINKS.whatsapp}
         target="_blank"
@@ -162,8 +174,58 @@ const App: React.FC = () => {
         <MessageCircle size={28} fill="white" className="text-white relative z-10" />
       </a>
 
+      {/* --- BOOKING MODAL (POPUP) --- */}
+      {isBookingModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop with blur */}
+          <div 
+            className="absolute inset-0 bg-lux-primary/80 backdrop-blur-md transition-opacity duration-300"
+            onClick={() => setIsBookingModalOpen(false)}
+          ></div>
+
+          {/* Modal Content */}
+          <div className="relative w-full max-w-5xl h-[90vh] md:h-[85vh] bg-[#FAF9F6] rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-fade-in-up ring-1 ring-white/20">
+            {/* Modal Header */}
+            <div className="bg-lux-primary text-white p-4 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                 <div className="p-1.5 bg-white/10 rounded-lg">
+                    <Calendar size={18} className="text-lux-secondary" />
+                 </div>
+                 <span className="font-serif text-lg tracking-wide">Agendamento Online</span>
+              </div>
+              <button 
+                onClick={() => setIsBookingModalOpen(false)}
+                className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/70 hover:text-white"
+                aria-label="Fechar"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Iframe Container */}
+            <div className="flex-1 relative bg-white w-full">
+              {/* Loader placeholder while iframe loads */}
+              <div className="absolute inset-0 flex items-center justify-center z-0">
+                <Loader2 className="animate-spin text-lux-secondary" size={40} />
+              </div>
+              
+              <iframe 
+                src={LINKS.doctoralia} 
+                title="Agendamento Doctoralia"
+                className="absolute inset-0 w-full h-full z-10 border-none"
+                allow="camera; microphone; geolocation"
+              ></iframe>
+            </div>
+            
+            {/* Modal Footer - Mobile Hint */}
+            <div className="bg-lux-bg border-t border-lux-primary/5 p-3 text-center text-xs text-lux-textSoft shrink-0">
+              Ambiente seguro integrado com Doctoralia.
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* --- HEADER --- */}
-      {/* Z-Index aumentado para 60 para garantir interatividade */}
       <header 
         className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ease-luxury ${
           isScrolled 
@@ -198,7 +260,7 @@ const App: React.FC = () => {
             <Button 
               variant="primary" 
               className="!py-2.5 !px-6 !text-xs shadow-none hover:shadow-lg active:scale-95"
-              onClick={() => window.open(LINKS.doctoralia, '_blank')}
+              onClick={() => setIsBookingModalOpen(true)}
             >
               Agendar Consulta
             </Button>
@@ -232,7 +294,7 @@ const App: React.FC = () => {
             </a>
           ))}
           <div className={`transition-all duration-500 delay-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <Button onClick={() => window.open(LINKS.doctoralia, '_blank')} className="mt-4 w-64">
+            <Button onClick={() => setIsBookingModalOpen(true)} className="mt-4 w-64">
               Agendar Consulta
             </Button>
           </div>
@@ -249,11 +311,6 @@ const App: React.FC = () => {
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F0ECE9] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[100px]"></div>
         
         <div className="container mx-auto px-6">
-          {/* 
-            UPDATE UX/UI: Changed from flex-col-reverse to flex-col on mobile.
-            Reason: On mobile/tablet, the Value Proposition (Text) should be read BEFORE seeing the image 
-            to reduce bounce rate and establish context immediately.
-          */}
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             
             <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-left relative z-10 w-full">
@@ -279,11 +336,7 @@ const App: React.FC = () => {
                   Um espaço seguro para transformar angústia em autonomia. Diagnóstico preciso e plano terapêutico individualizado na Clínica HS ou via Telemedicina.
                 </p>
 
-                {/* 
-                  MOBILE IMAGE PLACEMENT:
-                  Inserida aqui para aparecer ANTES dos botões em telas pequenas (Mobile First UX)
-                  Oculta em Desktop (lg:hidden)
-                */}
+                {/* MOBILE IMAGE PLACEMENT */}
                 <div className="block lg:hidden py-6">
                   <HeroImage />
                 </div>
@@ -300,7 +353,7 @@ const App: React.FC = () => {
                   <Button 
                     variant="outline" 
                     icon={<Calendar size={18} />}
-                    onClick={() => window.open(LINKS.doctoralia, '_blank')}
+                    onClick={() => setIsBookingModalOpen(true)}
                     className="w-full sm:w-auto active:scale-95 bg-white/50 backdrop-blur-sm"
                   >
                     Ver Disponibilidade
@@ -319,10 +372,7 @@ const App: React.FC = () => {
               </FadeIn>
             </div>
 
-            {/* 
-              DESKTOP IMAGE PLACEMENT:
-              Visível apenas em telas grandes (hidden lg:flex)
-            */}
+            {/* DESKTOP IMAGE PLACEMENT */}
             <div className="hidden lg:flex flex-1 w-full justify-center lg:justify-end relative">
               <FadeIn direction="right" delay={200}>
                 <HeroImage />
@@ -487,7 +537,6 @@ const App: React.FC = () => {
             </div>
             
             <div className="md:w-2/3">
-              {/* REFINED: Grid Layout for Luxury Structure (Order > Chaos) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {treatments.map((treatment, idx) => (
                   <FadeIn key={idx} delay={idx * 50} direction="left" className="h-full">
@@ -507,7 +556,6 @@ const App: React.FC = () => {
 
       {/* --- TESTIMONIALS (SOCIAL PROOF) --- */}
       <section className="py-16 md:py-24 bg-lux-primary text-white relative overflow-hidden">
-        {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-5 pointer-events-none" style={{backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px'}}></div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -556,10 +604,11 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- LOCALIZAÇÃO & CTA FINAL (MOVIDO PARA CIMA) --- */}
+      {/* --- LOCALIZAÇÃO & CTA FINAL --- */}
       <section id="contato" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="bg-lux-primary rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative group">
+             {/* Left Column: Contact Info */}
              <div className="p-8 md:p-16 text-white md:w-1/2 flex flex-col justify-center relative z-10 backdrop-blur-sm bg-lux-primary/95">
                <h3 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6 tracking-tight">Inicie sua jornada de cuidado.</h3>
                <p className="text-white/80 mb-8 text-base md:text-lg font-light">
@@ -597,34 +646,54 @@ const App: React.FC = () => {
                   >
                     Falar com Secretária
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    fullWidth 
-                    className="border-white/20 text-white hover:bg-white hover:text-lux-primary justify-center active:scale-95"
-                    onClick={() => window.open(LINKS.doctoralia, '_blank')}
-                  >
-                    Doctoralia
-                  </Button>
                </div>
              </div>
              
-             <div className="md:w-1/2 h-64 md:h-auto relative bg-[#E6E1DC]">
-               <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31633.90483488836!2d-49.0710252!3d-11.7290193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDQzJzQ0LjUiUyA0OcKwMDQnMTUuNyJX!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
-                 width="100%" 
-                 height="100%" 
-                 style={{border:0, filter: 'grayscale(1) contrast(1.1) brightness(0.9)'}} 
-                 allowFullScreen 
-                 loading="lazy"
-                 title="Mapa Clínica HS"
-                 className="transition-all duration-700 ease-luxury group-hover:filter-none group-hover:scale-105"
-               ></iframe>
+             {/* Right Column: New Scheduling Card (Dark/Minimalist) */}
+             <div className="md:w-1/2 min-h-[400px] relative bg-[#0a0a0a] overflow-hidden flex items-center justify-center p-8 group/card">
+                {/* Modern Dark Aesthetics / Glassmorphism */}
+                <div className="absolute inset-0 bg-lux-primary/20 mix-blend-overlay"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-lux-secondary/20 rounded-full blur-[80px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-lux-secondaryStrong/10 rounded-full blur-[60px] -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+
+                <div className="relative z-10 w-full max-w-sm">
+                   <div className="backdrop-blur-xl bg-white/5 border border-white/10 p-8 rounded-2xl shadow-2xl transition-all duration-700 hover:scale-[1.02] hover:bg-white/10 hover:border-lux-secondary/30 hover:shadow-glow group-hover/card:shadow-float">
+                      
+                      <div className="flex justify-center mb-6">
+                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shadow-inner group-hover/card:bg-lux-secondary/20 transition-colors duration-500">
+                           <Calendar className="w-8 h-8 text-lux-secondary" strokeWidth={1.5} />
+                        </div>
+                      </div>
+
+                      <h4 className="text-2xl md:text-3xl font-serif text-white text-center mb-3 tracking-wide">
+                        Agendamento Online
+                      </h4>
+                      
+                      <p className="text-white/60 text-center text-sm mb-8 font-light leading-relaxed">
+                        Visualize a agenda em tempo real, escolha o melhor horário e confirme sua consulta instantaneamente.
+                      </p>
+
+                      <Button 
+                        variant="primary" 
+                        fullWidth 
+                        onClick={() => setIsBookingModalOpen(true)} 
+                        className="shadow-glow hover:shadow-lux-secondary/50 !bg-lux-secondary hover:!bg-lux-secondaryStrong text-white border-none py-4 text-base tracking-widest uppercase font-bold"
+                      >
+                        Agendar Consulta
+                      </Button>
+                      
+                      <div className="mt-4 flex justify-center gap-2 items-center text-[10px] text-white/30 uppercase tracking-widest">
+                         <ShieldCheck size={12} />
+                         <span>Doctoralia Secure</span>
+                      </div>
+                   </div>
+                </div>
              </div>
            </div>
         </div>
       </section>
 
-      {/* --- FAQ SECTION (MOVIDO PARA BAIXO) --- */}
+      {/* --- FAQ SECTION --- */}
       <section id="faq" className="py-16 md:py-24 bg-lux-bg">
         <div className="container mx-auto px-6 max-w-3xl">
           <FadeIn>
@@ -698,7 +767,7 @@ const App: React.FC = () => {
                 <li><a href="#sobre" className="hover:text-lux-secondary transition-colors block py-1">Sobre Mim</a></li>
                 <li><a href="#diferenciais" className="hover:text-lux-secondary transition-colors block py-1">Nossa Filosofia</a></li>
                 <li><a href="#tratamentos" className="hover:text-lux-secondary transition-colors block py-1">Tratamentos</a></li>
-                <li><a href={LINKS.doctoralia} target="_blank" rel="noreferrer" className="hover:text-lux-secondary transition-colors block py-1">Agendar Consulta</a></li>
+                <li><button onClick={() => setIsBookingModalOpen(true)} className="hover:text-lux-secondary transition-colors block py-1 text-left">Agendar Consulta</button></li>
               </ul>
             </div>
 
