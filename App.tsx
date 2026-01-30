@@ -104,9 +104,9 @@ const App: React.FC = () => {
   };
 
   const navItems = [
-    { label: 'Sobre', id: 'sobre' },
-    { label: 'Diferenciais', id: 'diferenciais' },
-    { label: 'Tratamentos', id: 'tratamentos' },
+    { label: 'Especialista', id: 'sobre' },
+    { label: 'Pilares', id: 'diferenciais' },
+    { label: 'Atuação', id: 'tratamentos' },
     { label: 'Agendamento', id: 'contato' },
     { label: 'Dúvidas', id: 'faq' },
   ];
@@ -194,7 +194,10 @@ const App: React.FC = () => {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="z-[60] relative">
-            <h1 className="font-serif text-lg md:text-2xl font-bold text-lux-primary tracking-tight cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <h1 
+              className="font-serif text-lg md:text-2xl font-bold tracking-tight cursor-pointer bg-gradient-to-r from-lux-primary via-lux-secondary to-lux-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-text-shimmer hover:scale-[1.02] transition-transform duration-500" 
+              onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            >
               Dra. Caroline Aires
             </h1>
           </div>
@@ -279,14 +282,16 @@ const App: React.FC = () => {
             
             <div className="flex-1 space-y-8 text-center lg:text-left relative z-10 w-full">
               <FadeIn>
-                {/* MODIFIED: Reduced mb-8 to mb-6 for tighter lockup */}
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/60 backdrop-blur-sm border border-lux-primary/5 rounded-full mb-6 shadow-sm cursor-default">
-                  <Star size={10} className="text-lux-secondary fill-lux-secondary" />
-                  <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-lux-textSoft uppercase">Psiquiatria Especializada</span>
+                {/* MODIFIED: Luxury Line Structure (Minimalist) */}
+                <div className="flex items-center justify-center lg:justify-start gap-4 mb-6 select-none">
+                  <div className="w-12 h-px bg-lux-secondary"></div>
+                  <span className="text-xs md:text-sm font-bold tracking-[0.25em] text-lux-primary uppercase">
+                    Psiquiatria Especializada
+                  </span>
                 </div>
                 
-                {/* MODIFIED: Reduced mb-8 to mb-6 */}
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-6">
+                {/* MODIFIED: Reduced mb-8 to mb-6. REFINED FONT SIZES (md:text-5xl lg:text-6xl) for better composition */}
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-6">
                   Sua mente merece <br/>
                   <span className="relative inline-block mt-2">
                     <span className="relative z-10 italic text-lux-secondary font-light">acolhimento</span>
@@ -753,9 +758,9 @@ const App: React.FC = () => {
             <div>
               <h4 className="font-serif text-xl font-bold text-lux-bg mb-10">Navegação</h4>
               <ul className="space-y-5 text-sm md:text-base text-white/70 font-light">
-                <li><a href="#sobre" onClick={(e) => handleScrollTo(e, 'sobre')} className="hover:text-lux-secondary transition-colors block tracking-wide">Sobre</a></li>
-                <li><a href="#diferenciais" onClick={(e) => handleScrollTo(e, 'diferenciais')} className="hover:text-lux-secondary transition-colors block tracking-wide">Diferenciais</a></li>
-                <li><a href="#tratamentos" onClick={(e) => handleScrollTo(e, 'tratamentos')} className="hover:text-lux-secondary transition-colors block tracking-wide">Tratamento</a></li>
+                <li><a href="#sobre" onClick={(e) => handleScrollTo(e, 'sobre')} className="hover:text-lux-secondary transition-colors block tracking-wide">Especialista</a></li>
+                <li><a href="#diferenciais" onClick={(e) => handleScrollTo(e, 'diferenciais')} className="hover:text-lux-secondary transition-colors block tracking-wide">Pilares</a></li>
+                <li><a href="#tratamentos" onClick={(e) => handleScrollTo(e, 'tratamentos')} className="hover:text-lux-secondary transition-colors block tracking-wide">Atuação</a></li>
                 <li><a href="#contato" onClick={(e) => handleScrollTo(e, 'contato')} className="hover:text-lux-secondary transition-colors block tracking-wide">Agendamento</a></li>
                 <li><a href="#faq" onClick={(e) => handleScrollTo(e, 'faq')} className="hover:text-lux-secondary transition-colors block tracking-wide">Dúvidas</a></li>
               </ul>
