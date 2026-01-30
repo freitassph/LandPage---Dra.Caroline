@@ -156,7 +156,8 @@ const App: React.FC = () => {
       return 'bg-lux-bg/85 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] py-4 border-b border-lux-primary/5 border-t border-white/50';
     }
     // Default state: expanded, transparent
-    return 'bg-transparent py-6 md:py-10 border-b border-transparent';
+    // MODIFIED: Reduced padding from py-6/py-10 to py-5/py-8 to compact header
+    return 'bg-transparent py-5 md:py-8 border-b border-transparent';
   };
 
   return (
@@ -268,21 +269,24 @@ const App: React.FC = () => {
       </header>
 
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-36 pb-24 md:pt-56 md:pb-40 overflow-hidden min-h-[90vh] flex items-center">
+      {/* MODIFIED: Reduced padding top significantly (pt-28/md:pt-36) and removed 'flex items-center/min-h-90vh' to force content up */}
+      <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
         {/* Background Elements - Softer Gradient */}
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F2EFED] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[150px] opacity-80"></div>
         
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-28">
             
-            <div className="flex-1 space-y-10 text-center lg:text-left relative z-10 w-full">
+            <div className="flex-1 space-y-8 text-center lg:text-left relative z-10 w-full">
               <FadeIn>
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/60 backdrop-blur-sm border border-lux-primary/5 rounded-full mb-8 shadow-sm cursor-default">
+                {/* MODIFIED: Reduced mb-8 to mb-6 for tighter lockup */}
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/60 backdrop-blur-sm border border-lux-primary/5 rounded-full mb-6 shadow-sm cursor-default">
                   <Star size={10} className="text-lux-secondary fill-lux-secondary" />
                   <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-lux-textSoft uppercase">Psiquiatria Especializada</span>
                 </div>
                 
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-8">
+                {/* MODIFIED: Reduced mb-8 to mb-6 */}
+                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-6">
                   Sua mente merece <br/>
                   <span className="relative inline-block mt-2">
                     <span className="relative z-10 italic text-lux-secondary font-light">acolhimento</span>
@@ -294,12 +298,13 @@ const App: React.FC = () => {
                   {' '}e <br className="md:hidden" />ciência.
                 </h2>
                 
-                <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-8">
+                {/* MODIFIED: Reduced mb-8 to mb-6 */}
+                <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-6">
                   Um espaço seguro para transformar angústia em autonomia.
                 </p>
 
                 {/* Buttons Moved UP for Mobile/Tablet */}
-                <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start w-full sm:w-auto mb-12 lg:mb-0">
+                <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start w-full sm:w-auto mb-10 lg:mb-0">
                   <Button 
                     variant="primary" 
                     icon={<Calendar size={18} />}
@@ -311,11 +316,11 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Mobile Hero Image (Now BELOW buttons on mobile) */}
-                <div className="block lg:hidden pb-12">
+                <div className="block lg:hidden pb-4">
                   <HeroImage />
                 </div>
 
-                <div className="pt-8 lg:pt-16 flex flex-wrap items-center justify-center lg:justify-start gap-6 md:gap-10 opacity-70">
+                <div className="pt-6 lg:pt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 md:gap-10 opacity-70">
                    <div className="text-xs font-medium text-lux-text flex items-center gap-3">
                      <ShieldCheck size={18} className="text-lux-secondary" /> Especialista | RQE SP 104664
                    </div>
@@ -775,7 +780,7 @@ const App: React.FC = () => {
                © 2026 Dra. Caroline Aires. Todos os direitos reservados.
              </p>
              <div className="flex flex-col items-center gap-2">
-               <span className="text-[10px] text-white/30 uppercase tracking-[0.2em]">Designed for Excellence</span>
+               <span className="text-xs text-white/30 uppercase tracking-[0.2em]">Designed for Excellence</span>
                <a 
                  href="https://instagram.com/freitas.lab" 
                  target="_blank" 
