@@ -14,10 +14,10 @@ const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-8 py-4 rounded-lg transition-all duration-500 ease-luxury font-sans tracking-wide text-sm font-medium focus:outline-none disabled:opacity-50 select-none";
+  const baseStyles = "relative overflow-hidden inline-flex items-center justify-center px-8 py-4 rounded-lg transition-all duration-500 ease-luxury font-sans tracking-wide text-sm font-medium focus:outline-none disabled:opacity-50 select-none group";
   
   const variants = {
-    // Primary: Now uses secondaryStrong for higher conversion/contrast
+    // Primary: Added Shimmer Effect container in JSX
     primary: "bg-lux-secondaryStrong text-white hover:bg-lux-secondary shadow-soft hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-md",
     // Secondary: Elegant Deep Earth Brown
     secondary: "bg-lux-primary text-white hover:bg-lux-secondaryStrong shadow-soft active:shadow-sm",
@@ -34,8 +34,15 @@ const Button: React.FC<ButtonProps> = ({
       className={`${baseStyles} ${variants[variant]} ${widthClass} ${className}`}
       {...props}
     >
-      {icon && <span className="mr-2">{icon}</span>}
-      {children}
+      {/* Shimmer Effect for Primary Buttons */}
+      {variant === 'primary' && (
+        <span className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
+      )}
+      
+      <span className="relative z-20 flex items-center justify-center w-full">
+        {icon && <span className="mr-2">{icon}</span>}
+        {children}
+      </span>
     </button>
   );
 };
