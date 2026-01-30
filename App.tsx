@@ -282,16 +282,17 @@ const App: React.FC = () => {
                   <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-lux-textSoft uppercase">Psiquiatria Especializada</span>
                 </div>
                 
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-8">
-                  Sua mente merece <br/>
-                  <span className="relative inline-block mt-2">
+                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-tight md:leading-[1.15] tracking-tight mb-8">
+                  Sua mente merece <br />
+                  <span className="relative inline-block">
                     <span className="relative z-10 italic text-lux-secondary font-light">acolhimento</span>
                     {/* Risco ajustado para ficar bem abaixo da palavra e com design orgânico */}
                     <svg className="absolute -bottom-2 w-[110%] -left-[5%] h-3 md:h-4 -z-10 opacity-30 text-lux-secondary" viewBox="0 0 100 15" preserveAspectRatio="none">
                       <path d="M0 10 Q 50 18 100 10" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" />
                     </svg>
                   </span>
-                  {' '}e ciência.
+                  {' '}e <br />
+                  ciência.
                 </h2>
                 
                 <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-8">
