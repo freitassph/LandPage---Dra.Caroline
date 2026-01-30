@@ -25,7 +25,7 @@ const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
     
     <img 
       src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
-      alt="Dra. Caroline Aires - Psiquiatra Especialista em Ansiedade e TDAH Online e em Campinas" 
+      alt="Dra. Caroline Aires - Psiquiatra especialista em Saúde Mental, Depressão e Ansiedade Online e em Campinas" 
       className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.2)] z-10 relative select-none ring-1 ring-white/40"
       loading="eager"
     />
@@ -305,7 +305,7 @@ const App: React.FC = () => {
                 
                 {/* MODIFIED: Reduced mb-8 to mb-6 */}
                 <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-6">
-                  Um espaço seguro para transformar angústia em autonomia.
+                  Um espaço seguro para tratamento de ansiedade, depressão e transtornos da mente.
                 </p>
 
                 {/* Buttons Moved UP for Mobile/Tablet */}
@@ -358,11 +358,11 @@ const App: React.FC = () => {
                   <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none z-10"></div>
                   <img 
                     src="https://pixel-p1.s3.sa-east-1.amazonaws.com/facility/photos/111ab037/111ab037-ea50-46e3-bff8-d4e324631f78_large.jpg" 
-                    alt="Ambiente de acolhimento e escuta" 
+                    alt="Dra. Caroline Aires - Psiquiatria Humanizada e Tratamento de Doenças Mentais" 
                     className="w-full h-full object-cover object-bottom transition-transform duration-[2s] ease-luxury group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#4E3629]/90 via-[#4E3629]/40 to-transparent p-10 md:p-16 z-20">
-                     <p className="text-white/95 font-serif italic text-lg md:text-3xl text-center font-medium tracking-wide leading-relaxed">"Um ambiente pensado para o seu acolhimento."</p>
+                     <p className="text-white/95 font-serif italic text-lg md:text-3xl text-center font-medium tracking-wide leading-relaxed">"Um ambiente pensado para o seu acolhimento e saúde mental."</p>
                   </div>
                 </div>
               </FadeIn>
@@ -379,10 +379,10 @@ const App: React.FC = () => {
                   
                   <div className="space-y-8 text-lux-textSoft leading-loose font-light text-base md:text-lg text-justify md:text-left">
                     <p>
-                      Acredito que a psiquiatria vai muito além da prescrição. É sobre devolver a autonomia e a capacidade de sentir a vida em sua plenitude.
+                      Acredito que a psiquiatria vai muito além da prescrição. É sobre devolver a autonomia e a capacidade de sentir a vida em sua plenitude, tratando as doenças da mente com respeito e ciência.
                     </p>
                     <p>
-                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSP-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Cada paciente traz um universo único, e o tratamento deve refletir essa singularidade, respeitando seus valores, sua história e seu tempo.
+                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSP-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Cada paciente traz um universo único, e o tratamento de condições como ansiedade e depressão deve refletir essa singularidade, respeitando seus valores e sua história.
                     </p>
                   </div>
                   
@@ -410,9 +410,9 @@ const App: React.FC = () => {
 
                   {/* New Quote Integration */}
                   <div className="w-full mt-6 md:mt-10 pt-10 border-t border-lux-secondary/10">
-                    <div className="relative pl-8 md:pl-0">
-                      {/* Decorative vertical line for mobile */}
-                      <div className="md:hidden absolute left-0 top-0 bottom-0 w-1 bg-lux-secondary/30 rounded-full"></div>
+                    <div className="relative pl-8 md:pl-12">
+                      {/* Decorative vertical line for all screens */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1 md:w-1.5 bg-lux-secondary/30 rounded-full"></div>
                       
                       <p className="font-serif text-xl md:text-3xl text-lux-primary font-medium italic leading-relaxed md:leading-normal">
                         <span className="text-lux-secondary text-2xl md:text-5xl mr-2 opacity-60">"</span>
