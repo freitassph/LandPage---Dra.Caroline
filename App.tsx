@@ -19,7 +19,7 @@ const LINKS = {
 
 // Componente isolado da Imagem Hero para reutilização responsiva
 const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <div className={`relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[480px] md:h-[550px] animate-float mx-auto ${className}`}>
+  <div className={`relative w-[280px] h-[320px] sm:w-[350px] sm:h-[400px] md:w-[450px] md:h-[520px] lg:w-[500px] lg:h-[600px] animate-float mx-auto ${className}`}>
     {/* Organic Shapes Background - Tons mais suaves e "Nude" */}
     <div className="absolute top-6 -right-6 md:top-12 md:-right-12 w-full h-full bg-[#E8E2DE] rounded-[30px] md:rounded-[40px] -z-10 rotate-3 transition-transform duration-1000 ease-luxury hover:rotate-6 shadow-2xl shadow-[#D8D2CE]/50"></div>
     
@@ -148,16 +148,13 @@ const App: React.FC = () => {
   // Determine Header Classes logic to prevent jumping when menu is open
   const getHeaderClasses = () => {
     if (mobileMenuOpen) {
-      // Quando o menu está aberto, o header fica transparente para se fundir ao overlay
       return 'bg-transparent py-4 border-b border-transparent';
     }
     if (isScrolled) {
-      // Scrolled state: compact, blurred with light refraction borders
       return 'bg-lux-bg/85 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] py-4 border-b border-lux-primary/5 border-t border-white/50';
     }
-    // Default state: expanded, transparent
-    // MODIFIED: Reduced padding from py-6/py-10 to py-5/py-8 to compact header
-    return 'bg-transparent py-5 md:py-8 border-b border-transparent';
+    // Default state
+    return 'bg-transparent py-5 md:py-6 lg:py-8 border-b border-transparent';
   };
 
   return (
@@ -195,15 +192,16 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="z-[60] relative">
             <h1 
-              className="font-serif text-lg md:text-2xl font-bold tracking-tight cursor-pointer bg-gradient-to-r from-lux-primary via-lux-secondary to-lux-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-text-shimmer hover:scale-[1.02] transition-transform duration-500" 
+              className="font-serif text-lg md:text-xl lg:text-2xl font-bold tracking-tight cursor-pointer bg-gradient-to-r from-lux-primary via-lux-secondary to-lux-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-text-shimmer hover:scale-[1.02] transition-transform duration-500" 
               onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
             >
               Dra. Caroline Aires
             </h1>
           </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-12">
+          {/* Desktop Nav - Hidden on LG (Tablet Landscape), Visible on XL (Desktop) */}
+          {/* Change: Keeping navbar on lg (1024px) but reducing padding/gap to avoid squishing */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-12">
             {navItems.map((item) => (
               <a 
                 key={item.label}
@@ -217,14 +215,14 @@ const App: React.FC = () => {
             ))}
             <Button 
               variant="primary" 
-              className="!py-3 !px-8 !text-xs !tracking-widest shadow-none hover:shadow-lg active:scale-95 ml-4"
+              className="!py-3 !px-6 xl:!px-8 !text-xs !tracking-widest shadow-none hover:shadow-lg active:scale-95 ml-2 xl:ml-4"
               onClick={() => scrollToSection('contato')}
             >
               AGENDAR CONSULTA
             </Button>
           </nav>
 
-          {/* Mobile Menu Button - Z-Index 60 to stay above overlay */}
+          {/* Mobile/Tablet Menu Button - Visible until LG */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
             className="lg:hidden text-lux-primary p-2 z-[60] relative hover:bg-lux-secondary/10 rounded-full transition-colors"
@@ -234,16 +232,14 @@ const App: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Nav Overlay - Fixed to Viewport (h-dvh for mobile browsers) */}
+        {/* Mobile/Tablet Nav Overlay */}
         <div 
           className={`fixed top-0 left-0 w-full h-[100dvh] bg-[#FAF9F6] z-50 flex flex-col transition-all duration-700 ease-luxury ${
             mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'
           }`}
         >
-           {/* Background decorative element inside menu */}
            <div className="absolute top-0 right-0 w-full h-full bg-noise opacity-30 pointer-events-none"></div>
 
-           {/* Scrollable Content Area */}
            <div className="flex-1 flex flex-col items-center justify-center gap-8 md:gap-10 overflow-y-auto pb-32">
              {navItems.map((item, idx) => (
               <a 
@@ -262,7 +258,6 @@ const App: React.FC = () => {
             </div>
            </div>
 
-           {/* STICKY BOTTOM CTA FOR MOBILE CRO */}
            <div className={`p-6 border-t border-lux-primary/5 bg-[#FAF9F6]/90 backdrop-blur-md w-full shrink-0 z-50 absolute bottom-0 transition-all duration-700 delay-500 ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
               <Button onClick={() => scrollToSection('contato')} fullWidth className="!text-sm !py-5 shadow-lg">
                 Agendar Consulta
@@ -272,44 +267,40 @@ const App: React.FC = () => {
       </header>
 
       {/* --- HERO SECTION --- */}
-      {/* MODIFIED: Reduced padding top significantly (pt-28/md:pt-36) and removed 'flex items-center/min-h-90vh' to force content up */}
-      <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-        {/* Background Elements - Softer Gradient */}
+      {/* Update: Changed lg:flex-row to xl:flex-row to ensure Tablet Landscape (1024px) remains stacked */}
+      <section className="relative pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-40 lg:pb-24 overflow-hidden">
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F2EFED] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[150px] opacity-80"></div>
         
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-28">
+          <div className="flex flex-col xl:flex-row items-center gap-12 xl:gap-28">
             
-            <div className="flex-1 space-y-8 text-center lg:text-left relative z-10 w-full">
+            {/* Text Content - Stacked on LG, Side by side on XL */}
+            <div className="flex-1 space-y-8 text-center xl:text-left relative z-10 w-full">
               <FadeIn>
-                {/* MODIFIED: Luxury Line Structure (Minimalist) */}
-                <div className="flex items-center justify-center lg:justify-start gap-4 mb-6 select-none">
+                <div className="flex items-center justify-center xl:justify-start gap-4 mb-6 select-none">
                   <div className="w-12 h-px bg-lux-secondary"></div>
                   <span className="text-xs md:text-sm font-bold tracking-[0.25em] text-lux-primary uppercase">
                     Psiquiatria Especializada
                   </span>
                 </div>
                 
-                {/* MODIFIED: Reduced mb-8 to mb-6. REFINED FONT SIZES (md:text-5xl lg:text-6xl) for better composition */}
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-6">
+                {/* Responsive Typography */}
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-lux-primary leading-relaxed md:leading-tight lg:leading-[1.2] tracking-tight mb-6">
                   Sua mente merece <br/>
                   <span className="relative inline-block mt-2">
                     <span className="relative z-10 italic text-lux-secondary font-light">acolhimento</span>
-                    {/* Risco ajustado para ficar bem abaixo da palavra e com design orgânico */}
                     <svg className="absolute -bottom-2 w-[110%] -left-[5%] h-3 md:h-4 -z-10 opacity-30 text-lux-secondary" viewBox="0 0 100 15" preserveAspectRatio="none">
                       <path d="M0 10 Q 50 18 100 10" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" />
                     </svg>
                   </span>
-                  {' '}e <br className="md:hidden" />ciência.
+                  {' '}e <br className="md:hidden xl:block" />ciência.
                 </h2>
                 
-                {/* MODIFIED: Reduced mb-8 to mb-6 */}
-                <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-6">
+                <p className="text-base md:text-lg lg:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto xl:mx-0 text-balance opacity-90 mb-6">
                   Um espaço seguro para tratamento de ansiedade, depressão e transtornos da mente.
                 </p>
 
-                {/* Buttons Moved UP for Mobile/Tablet */}
-                <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start w-full sm:w-auto mb-10 lg:mb-0">
+                <div className="flex flex-col sm:flex-row gap-6 justify-center xl:justify-start w-full sm:w-auto mb-10 xl:mb-0">
                   <Button 
                     variant="primary" 
                     icon={<Calendar size={18} />}
@@ -320,12 +311,12 @@ const App: React.FC = () => {
                   </Button>
                 </div>
 
-                {/* Mobile Hero Image (Now BELOW buttons on mobile) */}
-                <div className="block lg:hidden pb-4">
-                  <HeroImage />
+                {/* Mobile & Tablet Portrait/Landscape Image (Visible up to XL) */}
+                <div className="block xl:hidden pb-4 pt-4">
+                  <HeroImage className="scale-95 md:scale-100 lg:scale-110" />
                 </div>
 
-                <div className="pt-6 lg:pt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 md:gap-10 opacity-70">
+                <div className="pt-6 lg:pt-12 flex flex-wrap items-center justify-center xl:justify-start gap-6 md:gap-10 opacity-70">
                    <div className="text-xs font-medium text-lux-text flex items-center gap-3">
                      <ShieldCheck size={18} className="text-lux-secondary" /> Especialista | RQE SP 104664
                    </div>
@@ -337,8 +328,8 @@ const App: React.FC = () => {
               </FadeIn>
             </div>
 
-            {/* Desktop Hero Image */}
-            <div className="hidden lg:flex flex-1 w-full justify-center lg:justify-end relative">
+            {/* Desktop Hero Image (Visible only on XL+) */}
+            <div className="hidden xl:flex flex-1 w-full justify-center xl:justify-end relative">
               <FadeIn direction="right" delay={200} blur={true}>
                 <HeroImage />
               </FadeIn>
@@ -348,21 +339,22 @@ const App: React.FC = () => {
       </section>
 
        {/* --- SOBRE A DRA --- */}
-       <section className="py-28 md:py-48 bg-white relative">
+       <section className="py-20 md:py-28 lg:py-32 xl:py-48 bg-white relative">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col gap-20 items-center">
+          <div className="flex flex-col gap-16 md:gap-20 items-center">
             
-            <div className="w-full max-w-5xl mx-auto mb-10">
+            <div className="w-full max-w-5xl mx-auto mb-4 md:mb-10">
               <FadeIn blur={true}>
-                <div className="relative group w-full h-[350px] md:h-[600px] overflow-hidden rounded-[40px] md:rounded-[60px] shadow-soft">
+                {/* Adjusted height for Tablet/Large Tablet */}
+                <div className="relative group w-full h-[350px] md:h-[450px] lg:h-[500px] xl:h-[600px] overflow-hidden rounded-[40px] md:rounded-[60px] shadow-soft">
                   <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none z-10"></div>
                   <img 
                     src="https://pixel-p1.s3.sa-east-1.amazonaws.com/facility/photos/111ab037/111ab037-ea50-46e3-bff8-d4e324631f78_large.jpg" 
                     alt="Dra. Caroline Aires - Psiquiatria Humanizada e Tratamento de Doenças Mentais" 
                     className="w-full h-full object-cover object-bottom transition-transform duration-[2s] ease-luxury group-hover:scale-105"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#4E3629]/90 via-[#4E3629]/40 to-transparent p-10 md:p-16 z-20">
-                     <p className="text-white/95 font-serif italic text-lg md:text-3xl text-center font-medium tracking-wide leading-relaxed">"Um ambiente pensado para o seu acolhimento e saúde mental."</p>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#4E3629]/90 via-[#4E3629]/40 to-transparent p-8 md:p-12 lg:p-16 z-20">
+                     <p className="text-white/95 font-serif italic text-lg md:text-2xl lg:text-3xl text-center font-medium tracking-wide leading-relaxed">"Um ambiente pensado para o seu acolhimento e saúde mental."</p>
                   </div>
                 </div>
               </FadeIn>
@@ -370,14 +362,16 @@ const App: React.FC = () => {
 
             <div id="sobre" className="max-w-4xl mx-auto w-full">
               <FadeIn delay={200}>
-                <div className="flex flex-col items-center text-center md:text-left md:items-start">
-                   <span className="text-lux-secondary text-xs font-bold tracking-[0.25em] uppercase mb-8 block flex items-center gap-4">
-                    <span className="w-16 h-px bg-lux-secondary/50"></span>
+                {/* Center align for Tablet Landscape (LG), Left align only for XL */}
+                <div className="flex flex-col items-center text-center xl:text-left xl:items-start">
+                   <span className="text-lux-secondary text-xs font-bold tracking-[0.25em] uppercase mb-8 block flex items-center justify-center xl:justify-start gap-4">
+                    <span className="w-16 h-px bg-lux-secondary/50 hidden xl:block"></span>
                     Sobre a especialista
+                    <span className="w-16 h-px bg-lux-secondary/50 block xl:hidden"></span>
                   </span>
-                  <h2 className="font-serif text-4xl md:text-5xl text-lux-primary mb-12 text-center md:text-left w-full tracking-tight">Dra. Caroline Aires</h2>
+                  <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-lux-primary mb-12 text-center xl:text-left w-full tracking-tight">Dra. Caroline Aires</h2>
                   
-                  <div className="space-y-8 text-lux-textSoft leading-loose font-light text-base md:text-lg text-justify md:text-left">
+                  <div className="space-y-6 md:space-y-8 text-lux-textSoft leading-loose font-light text-base md:text-lg text-justify xl:text-left px-4 md:px-0">
                     <p>
                       Acredito que a psiquiatria vai muito além da prescrição. É sobre devolver a autonomia e a capacidade de sentir a vida em sua plenitude, tratando as doenças da mente com respeito e ciência.
                     </p>
@@ -386,18 +380,18 @@ const App: React.FC = () => {
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-8 my-16 w-full">
-                    <div className="bg-lux-bg p-8 rounded-3xl border border-lux-secondary/5 hover:border-lux-secondary/20 transition-all duration-500 text-center md:text-left group cursor-default">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 my-12 md:my-16 w-full max-w-2xl xl:max-w-none mx-auto">
+                    <div className="bg-lux-bg p-8 rounded-3xl border border-lux-secondary/5 hover:border-lux-secondary/20 transition-all duration-500 text-center xl:text-left group cursor-default">
                       <h4 className="font-serif text-lux-primary font-bold text-2xl md:text-3xl mb-3 group-hover:text-lux-secondary transition-colors">RQE SP 104664</h4>
                       <p className="text-[11px] text-lux-textSoft uppercase tracking-widest">Especialista Registrada</p>
                     </div>
-                    <div className="bg-lux-bg p-8 rounded-3xl border border-lux-secondary/5 hover:border-lux-secondary/20 transition-all duration-500 text-center md:text-left group cursor-default">
+                    <div className="bg-lux-bg p-8 rounded-3xl border border-lux-secondary/5 hover:border-lux-secondary/20 transition-all duration-500 text-center xl:text-left group cursor-default">
                       <h4 className="font-serif text-lux-primary font-bold text-2xl md:text-3xl mb-3 group-hover:text-lux-secondary transition-colors">+10 Anos</h4>
                       <p className="text-[11px] text-lux-textSoft uppercase tracking-widest">Trajetória Médica</p>
                     </div>
                   </div>
 
-                  <div className="mb-12 w-full text-center md:text-left">
+                  <div className="mb-12 w-full text-center xl:text-left">
                      <a 
                         href={LINKS.escavador}
                         target="_blank"
@@ -408,16 +402,13 @@ const App: React.FC = () => {
                      </a>
                   </div>
 
-                  {/* New Quote Integration */}
                   <div className="w-full mt-6 md:mt-10 pt-10 border-t border-lux-secondary/10">
-                    <div className="relative pl-8 md:pl-12">
-                      {/* Decorative vertical line for all screens */}
-                      <div className="absolute left-0 top-0 bottom-0 w-1 md:w-1.5 bg-lux-secondary/30 rounded-full"></div>
-                      
-                      <p className="font-serif text-xl md:text-3xl text-lux-primary font-medium italic leading-relaxed md:leading-normal">
-                        <span className="text-lux-secondary text-2xl md:text-5xl mr-2 opacity-60">"</span>
+                    <div className="relative pl-0 md:pl-0 xl:pl-12 text-center xl:text-left">
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-lux-secondary/30 rounded-full hidden xl:block"></div>
+                      <p className="font-serif text-xl md:text-2xl lg:text-3xl text-lux-primary font-medium italic leading-relaxed">
+                        <span className="text-lux-secondary text-2xl md:text-4xl lg:text-5xl mr-2 opacity-60">"</span>
                         Transformando ansiedade em futuro brilhante através de uma medicina baseada em evidências e empatia.
-                        <span className="text-lux-secondary text-2xl md:text-5xl ml-2 opacity-60">"</span>
+                        <span className="text-lux-secondary text-2xl md:text-4xl lg:text-5xl ml-2 opacity-60">"</span>
                       </p>
                     </div>
                   </div>
@@ -430,22 +421,22 @@ const App: React.FC = () => {
       </section>
 
       {/* --- DIFERENCIAIS (Filosofia) --- */}
-      <section id="diferenciais" className="py-28 md:py-48 bg-lux-bg relative overflow-hidden">
-        {/* Subtle texture overlay */}
+      <section id="diferenciais" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-lux-bg relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
         <div className="container mx-auto px-6 relative z-10">
           <FadeIn>
-            <div className="text-center mb-20 md:mb-28 max-w-3xl mx-auto">
+            <div className="text-center mb-16 md:mb-20 lg:mb-28 max-w-3xl mx-auto">
               <span className="text-lux-secondary text-xs font-bold tracking-[0.25em] uppercase mb-6 block">Nossos Pilares</span>
-              <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-8 tracking-tight">Uma medicina que escuta.</h2>
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-lux-primary mb-8 tracking-tight">Uma medicina que escuta.</h2>
               <p className="text-lux-textSoft font-light leading-loose px-4 text-lg md:text-xl">
                 Mais do que diagnósticos, oferecemos um porto seguro. Uma prática médica que valoriza sua história e constrói o tratamento junto com você.
               </p>
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          {/* Adjusted Grid: MD=2cols, XL=3cols. LG remains 2cols to avoid squeezing. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
             {[
               { 
                 icon: <Clock strokeWidth={1} size={36} />, 
@@ -463,7 +454,7 @@ const App: React.FC = () => {
                 text: "A medicação é uma ferramenta, não o todo. Orientamos sobre sono, nutrição e rotina como pilares inegociáveis da saúde mental." 
               }
             ].map((item, idx) => (
-              <FadeIn key={idx} delay={idx * 150} blur={true}>
+              <FadeIn key={idx} delay={idx * 150} blur={true} className={idx === 2 ? "md:col-span-2 xl:col-span-1 md:w-2/3 xl:w-full md:mx-auto" : ""}>
                 <div className="p-10 md:p-12 bg-white rounded-[32px] border border-transparent hover:border-lux-secondary/10 transition-all duration-700 ease-luxury hover:shadow-[0_20px_40px_-10px_rgba(184,115,85,0.15)] group h-full flex flex-col items-center text-center relative overflow-hidden hover:-translate-y-3">
                   <div className="text-lux-secondary mb-8 md:mb-10 p-6 bg-[#FAF9F6] rounded-full shadow-sm group-hover:scale-110 group-hover:bg-lux-primary group-hover:text-white transition-all duration-700 ease-luxury">
                     {item.icon}
@@ -478,42 +469,43 @@ const App: React.FC = () => {
       </section>
 
       {/* --- TRATAMENTOS --- */}
-      <section id="tratamentos" className="py-28 md:py-48 bg-white relative overflow-hidden">
+      <section id="tratamentos" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-lux-secondary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row gap-20 md:gap-32">
-            <div className="md:w-1/3 md:sticky md:top-40 self-start">
+          {/* Changed LG to stack, XL to row. Tablet Horizontal (1024px) will stack. */}
+          <div className="flex flex-col xl:flex-row gap-16 xl:gap-32">
+            <div className="w-full xl:w-1/3 xl:sticky xl:top-40 self-start text-center xl:text-left">
               <FadeIn>
-                <div className="inline-flex items-center gap-3 mb-8">
+                <div className="inline-flex items-center gap-3 mb-8 justify-center xl:justify-start w-full">
                   <Sparkles size={18} className="text-lux-secondary" />
                   <span className="text-lux-secondary text-xs font-bold tracking-[0.25em] uppercase">Áreas de Atuação</span>
                 </div>
-                <h2 className="font-serif text-4xl md:text-5xl text-lux-primary mb-8 md:mb-12 tracking-tight leading-tight">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-lux-primary mb-8 md:mb-12 tracking-tight leading-tight">
                   Como posso te <span className="text-lux-secondary italic tracking-normal font-light">ajudar</span>?
                 </h2>
-                <p className="text-lux-textSoft mb-10 md:mb-14 leading-loose text-lg font-light">
+                <p className="text-lux-textSoft mb-10 md:mb-14 leading-loose text-lg font-light max-w-2xl mx-auto xl:mx-0">
                   Identificar o problema é o primeiro passo para a cura. O tratamento adequado devolve cores à vida e silencia o ruído da angústia.
                 </p>
                 <Button 
                   onClick={() => scrollToSection('contato')}
                   icon={<ArrowRight size={18} />}
-                  className="w-full md:w-auto active:scale-95 shadow-lg py-4 px-8"
+                  className="w-full sm:w-auto md:px-12 active:scale-95 shadow-lg py-4"
                 >
                   Solicitar Avaliação
                 </Button>
               </FadeIn>
             </div>
             
-            <div className="md:w-2/3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+            <div className="w-full xl:w-2/3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-8">
                 {treatments.map((treatment, idx) => (
                   <FadeIn key={idx} delay={idx * 50} direction="left" className="h-full" blur={true}>
-                    <div className="group flex items-center gap-6 px-8 py-8 rounded-3xl bg-lux-bg/50 border border-lux-primary/5 hover:border-lux-secondary/20 hover:bg-white hover:shadow-card hover:-translate-y-2 transition-all duration-500 ease-luxury cursor-default select-none h-full">
-                      <div className="w-12 h-12 shrink-0 rounded-full bg-lux-secondary/5 flex items-center justify-center text-lux-secondary shadow-sm group-hover:bg-lux-secondary group-hover:text-white transition-colors duration-500">
+                    <div className="group flex items-center gap-6 px-6 py-6 md:px-8 md:py-8 rounded-3xl bg-lux-bg/50 border border-lux-primary/5 hover:border-lux-secondary/20 hover:bg-white hover:shadow-card hover:-translate-y-2 transition-all duration-500 ease-luxury cursor-default select-none h-full">
+                      <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-lux-secondary/5 flex items-center justify-center text-lux-secondary shadow-sm group-hover:bg-lux-secondary group-hover:text-white transition-colors duration-500">
                         <CheckCircle2 size={20} strokeWidth={2} />
                       </div>
-                      <span className="text-lg md:text-xl text-lux-primary font-medium group-hover:text-lux-secondary transition-colors duration-300">{treatment}</span>
+                      <span className="text-base md:text-lg lg:text-xl text-lux-primary font-medium group-hover:text-lux-secondary transition-colors duration-300">{treatment}</span>
                     </div>
                   </FadeIn>
                 ))}
@@ -524,25 +516,26 @@ const App: React.FC = () => {
       </section>
 
       {/* --- TESTIMONIALS (SOCIAL PROOF - REFINED) --- */}
-      <section className="py-28 md:py-48 bg-[#4E3629] text-white relative overflow-hidden">
+      <section className="py-20 md:py-28 lg:py-32 xl:py-48 bg-[#4E3629] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
         
         <div className="container mx-auto px-6 relative z-10">
           <FadeIn>
-            <div className="text-center mb-20 md:mb-28">
+            <div className="text-center mb-16 md:mb-20 lg:mb-28">
                <Quote size={56} className="text-lux-secondary mx-auto mb-8 opacity-60" />
-               <h2 className="font-serif text-3xl md:text-5xl text-white mb-4 tracking-tight">Histórias Reais</h2>
+               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-4 tracking-tight">Histórias Reais</h2>
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-3 gap-10 md:gap-12">
+          {/* Adjusted grid: 1 col mobile, 2 cols tablet (md/lg), 3 cols desktop (xl) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
             {[
               "Desde a primeira consulta com a Dra. Caroline me senti acolhido e ouvido de verdade. Ela é uma profissional extremamente atenciosa, humana e competente, que transmite segurança e confiança em cada atendimento. Sempre demonstra paciência para explicar os detalhes, escuta sem julgamentos e conduz o tratamento de forma clara e eficaz. Tenho sentido uma grande evolução na minha saúde mental graças ao cuidado e dedicação dela. Sem dúvidas, é uma médica que faz toda a diferença na vida dos pacientes. Recomendo de coração!",
               "Quero deixar meu reconhecimento à Dra. Caroline, uma psiquiatra de excelência, cuja dedicação, empatia e profissionalismo são admiráveis. Sua escuta atenta, sensibilidade no cuidado e clareza nas orientações transmitem segurança e acolhimento desde o primeiro contato. Ela possui uma habilidade única de compreender além das palavras, tratando cada paciente com respeito, humanidade e carinho. Uma profissional rara, que inspira confiança e faz toda a diferença na jornada da saúde mental. Gratidão por seu trabalho tão essencial e transformador!",
               "Comecei meu acompanhamento com a Dra. Caroline há cerca de dois meses e me sinto muito mais tranquila desde então. Ela é uma profissional extremamente atenciosa, que escuta com sensibilidade e acolhe com respeito. Gosto muito da forma como conduz as consultas, sempre buscando soluções em conjunto comigo, sem pressa ou pressão. Me sinto segura para falar abertamente, pois sei que ela respeita meu tempo e minhas decisões — inclusive em relação ao uso de medicação, que só é considerado quando realmente necessário e sempre com explicações muito claras. Sou muito grata por tê-la encontrado nesse momento da minha vida."
             ].map((text, i) => (
-              <FadeIn key={i} delay={i * 150} blur={true}>
-                <div className="bg-white/5 p-10 md:p-12 rounded-[32px] backdrop-blur-md border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-3 h-full flex flex-col justify-between hover:shadow-[0_0_40px_rgba(184,115,85,0.2)] group">
+              <FadeIn key={i} delay={i * 150} blur={true} className={i === 2 ? "md:col-span-2 xl:col-span-1 md:w-2/3 xl:w-full md:mx-auto" : ""}>
+                <div className="bg-white/5 p-8 md:p-10 lg:p-12 rounded-[32px] backdrop-blur-md border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-3 h-full flex flex-col justify-between hover:shadow-[0_0_40px_rgba(184,115,85,0.2)] group">
                   <div>
                     <div className="flex gap-2 mb-8 opacity-100 text-lux-secondary group-hover:text-[#E8BAA4] transition-colors duration-500">
                       <Star size={18} fill="currentColor" />
@@ -551,8 +544,7 @@ const App: React.FC = () => {
                       <Star size={18} fill="currentColor" />
                       <Star size={18} fill="currentColor" />
                     </div>
-                    {/* Alterado para text-base e leading-relaxed para acomodar o texto maior mantendo a elegância */}
-                    <p className="font-light italic text-white/90 leading-relaxed text-base md:text-lg tracking-wide">"{text}"</p>
+                    <p className="font-light italic text-white/90 leading-relaxed text-base tracking-wide">"{text}"</p>
                   </div>
                   <div className="mt-10 flex items-center gap-5 border-t border-white/10 pt-8">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lux-secondary to-lux-secondaryStrong flex items-center justify-center text-base font-bold text-white shrink-0 shadow-lg ring-2 ring-white/10">
@@ -573,42 +565,43 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- LOCALIZAÇÃO: HUB DE ATENDIMENTO (FIXED CONTRADICTION) --- */}
-      <section id="contato" className="py-28 md:py-48 bg-lux-bg relative">
+      {/* --- LOCALIZAÇÃO: HUB DE ATENDIMENTO --- */}
+      <section id="contato" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-lux-bg relative">
         <div className="container mx-auto px-6">
           <FadeIn>
-            <div className="text-center mb-20 md:mb-28">
-               <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-8 tracking-tight">Onde nos encontrar</h2>
-               <p className="text-lux-textSoft max-w-xl mx-auto text-xl font-light">Escolha a modalidade de atendimento ideal para o seu momento.</p>
+            <div className="text-center mb-16 md:mb-20 lg:mb-28">
+               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-lux-primary mb-8 tracking-tight">Onde nos encontrar</h2>
+               <p className="text-lux-textSoft max-w-xl mx-auto text-lg md:text-xl font-light">Escolha a modalidade de atendimento ideal para o seu momento.</p>
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto">
+          {/* Adjusted Grid: Stacked on MD, 2-cols on LG/XL. Added xl:max-w-6xl */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 max-w-6xl mx-auto">
              
-             {/* CARD 1: TELEMEDICINA (ALTA CONVERSÃO) */}
+             {/* CARD 1: TELEMEDICINA */}
              <FadeIn delay={100} className="h-full">
-               <div className="relative bg-white rounded-[48px] p-10 md:p-16 border border-lux-secondary/20 shadow-float flex flex-col h-full overflow-hidden group hover:border-lux-secondary/40 transition-colors duration-500">
+               <div className="relative bg-white rounded-[48px] p-8 md:p-12 lg:p-16 border border-lux-secondary/20 shadow-float flex flex-col h-full overflow-hidden group hover:border-lux-secondary/40 transition-colors duration-500">
                   <div className="absolute -top-32 -right-32 w-80 h-80 bg-lux-secondary/5 rounded-full blur-[80px] group-hover:bg-lux-secondary/10 transition-colors duration-700"></div>
                   
                   <div className="relative z-10 flex flex-col h-full">
-                    <div className="flex items-center justify-between mb-10">
-                       <div className="w-20 h-20 bg-[#FAF9F6] rounded-3xl flex items-center justify-center text-lux-secondary border border-lux-secondary/20 shadow-sm">
-                          <Video size={40} strokeWidth={1.5} />
+                    <div className="flex items-center justify-between mb-8 md:mb-10">
+                       <div className="w-16 h-16 md:w-20 md:h-20 bg-[#FAF9F6] rounded-3xl flex items-center justify-center text-lux-secondary border border-lux-secondary/20 shadow-sm">
+                          <Video size={32} className="md:w-10 md:h-10" strokeWidth={1.5} />
                        </div>
-                       <span className="bg-green-50 text-green-800 text-xs font-bold px-5 py-2 rounded-full border border-green-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
+                       <span className="bg-green-50 text-green-800 text-[10px] md:text-xs font-bold px-4 md:px-5 py-2 rounded-full border border-green-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
                          <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                          Disponível
                        </span>
                     </div>
 
-                    <h3 className="font-serif text-4xl text-lux-primary font-bold mb-6">Telemedicina</h3>
-                    <p className="text-lux-textSoft mb-12 leading-loose text-lg flex-grow font-light">
+                    <h3 className="font-serif text-3xl md:text-4xl text-lux-primary font-bold mb-6">Telemedicina</h3>
+                    <p className="text-lux-textSoft mb-10 md:mb-12 leading-loose text-base md:text-lg flex-grow font-light">
                       Atendimento para todo o Brasil. Conforto, sigilo e praticidade com a mesma profundidade do presencial.
                     </p>
 
-                    <ul className="space-y-5 mb-12 text-base text-lux-textSoft/80">
-                      <li className="flex items-center gap-3"><CheckCircle2 size={20} className="text-green-500" /> Receita digital aceita em todo território nacional</li>
-                      <li className="flex items-center gap-3"><CheckCircle2 size={20} className="text-green-500" /> Atestados e Laudos com certificação digital</li>
+                    <ul className="space-y-4 md:space-y-5 mb-10 md:mb-12 text-sm md:text-base text-lux-textSoft/80">
+                      <li className="flex items-center gap-3"><CheckCircle2 size={20} className="text-green-500 shrink-0" /> Receita digital aceita em todo território nacional</li>
+                      <li className="flex items-center gap-3"><CheckCircle2 size={20} className="text-green-500 shrink-0" /> Atestados e Laudos com certificação digital</li>
                     </ul>
 
                     <div className="mt-auto flex flex-col gap-4">
@@ -635,23 +628,22 @@ const App: React.FC = () => {
                </div>
              </FadeIn>
 
-             {/* CARD 2: CAMPINAS (EM BREVE / LISTA DE ESPERA) */}
+             {/* CARD 2: CAMPINAS */}
              <FadeIn delay={300} className="h-full">
-                <div className="relative bg-[#FAF9F6] rounded-[48px] p-10 md:p-16 border border-lux-primary/5 flex flex-col h-full overflow-hidden hover:bg-white hover:border-lux-secondary/10 hover:shadow-lg transition-all duration-700 group">
+                <div className="relative bg-[#FAF9F6] rounded-[48px] p-8 md:p-12 lg:p-16 border border-lux-primary/5 flex flex-col h-full overflow-hidden hover:bg-white hover:border-lux-secondary/10 hover:shadow-lg transition-all duration-700 group">
                    
                    <div className="relative z-10 flex flex-col h-full">
-                     <div className="flex items-center justify-between mb-10">
-                        <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-lux-textSoft border border-lux-primary/5 shadow-sm group-hover:text-amber-700 transition-colors">
-                           <MapPin size={40} strokeWidth={1.5} />
+                     <div className="flex items-center justify-between mb-8 md:mb-10">
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-3xl flex items-center justify-center text-lux-textSoft border border-lux-primary/5 shadow-sm group-hover:text-amber-700 transition-colors">
+                           <MapPin size={32} className="md:w-10 md:h-10" strokeWidth={1.5} />
                         </div>
-                        {/* Status: Em Breve */}
-                        <span className="bg-amber-50 text-amber-800 text-xs font-bold px-5 py-2 rounded-full border border-amber-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
+                        <span className="bg-amber-50 text-amber-800 text-[10px] md:text-xs font-bold px-4 md:px-5 py-2 rounded-full border border-amber-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
                            <Hourglass size={14} /> Em Breve
                         </span>
                      </div>
 
-                     <h3 className="font-serif text-4xl text-lux-primary font-bold mb-6">Campinas - SP</h3>
-                     <p className="text-lux-textSoft mb-12 leading-loose text-lg font-light">
+                     <h3 className="font-serif text-3xl md:text-4xl text-lux-primary font-bold mb-6">Campinas - SP</h3>
+                     <p className="text-lux-textSoft mb-10 md:mb-12 leading-loose text-base md:text-lg font-light">
                        Um novo espaço de acolhimento está sendo preparado cuidadosamente para você no coração de Campinas.
                      </p>
                      
@@ -659,7 +651,7 @@ const App: React.FC = () => {
                         <p className="text-xs text-lux-textSoft uppercase tracking-[0.25em] font-bold mb-3 flex items-center gap-2">
                            <Lock size={14} /> Lista de espera
                         </p>
-                        <p className="text-base text-lux-textSoft/80 font-light">
+                        <p className="text-sm md:text-base text-lux-textSoft/80 font-light">
                            Cadastre-se para ser avisado sobre a data de inauguração.
                         </p>
                      </div>
@@ -683,8 +675,8 @@ const App: React.FC = () => {
       </section>
 
       {/* --- FAQ SECTION --- */}
-      <section id="faq" className="py-28 md:py-48 bg-white">
-        {/* FAQ Schema Markup - Added for SEO Rich Snippets */}
+      <section id="faq" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-white">
+        {/* FAQ Schema Markup */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
@@ -702,8 +694,8 @@ const App: React.FC = () => {
 
         <div className="container mx-auto px-6 max-w-4xl">
           <FadeIn>
-             <div className="text-center mb-20 md:mb-28">
-              <h2 className="font-serif text-3xl md:text-5xl text-lux-primary mb-8 tracking-tight">Dúvidas Frequentes</h2>
+             <div className="text-center mb-16 md:mb-20 lg:mb-28">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-lux-primary mb-8 tracking-tight">Dúvidas Frequentes</h2>
             </div>
           </FadeIn>
 
@@ -715,12 +707,12 @@ const App: React.FC = () => {
                 >
                   <button 
                     onClick={() => toggleFaq(index)}
-                    className="w-full flex items-center justify-between p-8 md:p-10 text-left focus:outline-none"
+                    className="w-full flex items-center justify-between p-6 md:p-10 text-left focus:outline-none"
                   >
-                    <span className={`font-medium text-lg md:text-2xl transition-colors pr-8 font-serif ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
+                    <span className={`font-medium text-lg md:text-xl lg:text-2xl transition-colors pr-4 md:pr-8 font-serif ${openFaqIndex === index ? 'text-lux-secondary' : 'text-lux-primary'}`}>
                       {item.question}
                     </span>
-                    <div className={`transition-transform duration-500 ease-luxury p-2 rounded-full ${openFaqIndex === index ? 'rotate-180 bg-lux-secondary/10 text-lux-secondary' : 'text-lux-textSoft'}`}>
+                    <div className={`transition-transform duration-500 ease-luxury p-2 rounded-full shrink-0 ${openFaqIndex === index ? 'rotate-180 bg-lux-secondary/10 text-lux-secondary' : 'text-lux-textSoft'}`}>
                        {openFaqIndex === index ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
                     </div>
                   </button>
@@ -729,7 +721,7 @@ const App: React.FC = () => {
                       openFaqIndex === index ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="p-8 md:p-10 pt-0 text-lux-textSoft leading-loose text-lg md:text-xl border-t border-transparent font-light">
+                    <div className="p-6 md:p-10 pt-0 text-lux-textSoft leading-loose text-base md:text-lg lg:text-xl border-t border-transparent font-light">
                       {item.answer}
                     </div>
                   </div>
@@ -741,12 +733,12 @@ const App: React.FC = () => {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="bg-lux-primary text-white pt-32 md:pt-40 pb-16">
+      <footer className="bg-lux-primary text-white pt-20 md:pt-32 lg:pt-40 pb-16">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-16 md:gap-32 mb-24">
-            <div className="space-y-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-12 md:gap-16 lg:gap-24 xl:gap-32 mb-16 md:mb-24">
+            <div className="space-y-8 text-center md:text-left">
               <h4 className="font-serif text-2xl font-bold text-lux-bg">Dra. Caroline Aires</h4>
-              <div className="text-white/70 text-base leading-loose max-w-sm font-light">
+              <div className="text-white/70 text-base leading-loose max-w-sm mx-auto md:mx-0 font-light">
                 <span className="block mb-4 text-white font-medium">Médica Psiquiatra</span>
                 <span className="block text-xs uppercase tracking-[0.25em] leading-loose opacity-80">
                   CRM-SP 166488 - MÉDICA<br/>
@@ -755,8 +747,8 @@ const App: React.FC = () => {
               </div>
             </div>
             
-            <div>
-              <h4 className="font-serif text-xl font-bold text-lux-bg mb-10">Navegação</h4>
+            <div className="text-center md:text-left">
+              <h4 className="font-serif text-xl font-bold text-lux-bg mb-8 md:mb-10">Navegação</h4>
               <ul className="space-y-5 text-sm md:text-base text-white/70 font-light">
                 <li><a href="#sobre" onClick={(e) => handleScrollTo(e, 'sobre')} className="hover:text-lux-secondary transition-colors block tracking-wide">Especialista</a></li>
                 <li><a href="#diferenciais" onClick={(e) => handleScrollTo(e, 'diferenciais')} className="hover:text-lux-secondary transition-colors block tracking-wide">Pilares</a></li>
@@ -766,8 +758,8 @@ const App: React.FC = () => {
               </ul>
             </div>
 
-            <div>
-              <h4 className="font-serif text-xl font-bold text-lux-bg mb-10">Aviso Legal</h4>
+            <div className="md:col-span-2 xl:col-span-1">
+              <h4 className="font-serif text-xl font-bold text-lux-bg mb-8 md:mb-10 text-center md:text-left">Aviso Legal</h4>
               <div className="bg-white/5 border border-white/10 p-8 rounded-2xl flex gap-5 items-start hover:bg-white/10 transition-colors group">
                 <AlertCircle size={24} className="text-lux-secondaryStrong shrink-0 mt-0.5 group-hover:text-white transition-colors" />
                 <div className="space-y-3">
