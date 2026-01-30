@@ -282,21 +282,20 @@ const App: React.FC = () => {
                   <span className="text-[10px] md:text-xs font-bold tracking-[0.25em] text-lux-textSoft uppercase">Psiquiatria Especializada</span>
                 </div>
                 
-                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-tight md:leading-[1.15] tracking-tight mb-8">
-                  Sua mente merece <br />
-                  <span className="relative inline-block">
+                <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-lux-primary leading-relaxed md:leading-[1.2] tracking-tight mb-8">
+                  Sua mente merece <br/>
+                  <span className="relative inline-block mt-2">
                     <span className="relative z-10 italic text-lux-secondary font-light">acolhimento</span>
                     {/* Risco ajustado para ficar bem abaixo da palavra e com design orgânico */}
                     <svg className="absolute -bottom-2 w-[110%] -left-[5%] h-3 md:h-4 -z-10 opacity-30 text-lux-secondary" viewBox="0 0 100 15" preserveAspectRatio="none">
                       <path d="M0 10 Q 50 18 100 10" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" />
                     </svg>
                   </span>
-                  {' '}e <br />
-                  ciência.
+                  {' '}e <br className="md:hidden" />ciência.
                 </h2>
                 
                 <p className="text-base md:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-balance opacity-90 mb-8">
-                  Um espaço seguro para transformar angústia em autonomia
+                  Um espaço seguro para transformar angústia em autonomia.
                 </p>
 
                 {/* Buttons Moved UP for Mobile/Tablet */}
@@ -588,7 +587,7 @@ const App: React.FC = () => {
                        </div>
                        <span className="bg-green-50 text-green-800 text-xs font-bold px-5 py-2 rounded-full border border-green-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
                          <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-                         Disponível Agora
+                         Disponível
                        </span>
                     </div>
 
