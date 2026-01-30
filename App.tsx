@@ -777,7 +777,7 @@ const App: React.FC = () => {
           
           <div className="border-t border-white/10 pt-12 flex flex-col items-center justify-center gap-4 text-center">
              <p className="text-xs text-white/30 tracking-wider">
-               © 2026 Dra. Caroline Aires. Todos os direitos reservados.
+               © {new Date().getFullYear()} Dra. Caroline Aires. Todos os direitos reservados.
              </p>
              <div className="flex flex-col items-center gap-2">
                <span className="text-xs text-white/30 uppercase tracking-[0.2em]">Designed for Excellence</span>
