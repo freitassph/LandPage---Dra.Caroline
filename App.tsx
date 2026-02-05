@@ -25,7 +25,7 @@ const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
     
     <img 
       src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
-      alt="Dra. Caroline Aires - Psiquiatra especialista em Saúde Mental, Depressão e Ansiedade Online e em Campinas" 
+      alt="Dra. Caroline Aires - Psiquiatra especialista em Esquizofrenia e Psicose Maníaco Depressiva Online e em Campinas" 
       className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.2)] z-10 relative select-none ring-1 ring-white/40"
       loading="eager"
     />
@@ -112,14 +112,16 @@ const App: React.FC = () => {
   ];
 
   const treatments = [
-    "Depressão & Humor",
-    "Ansiedade Generalizada",
-    "TDAH em Adultos",
+    "Esquizofrenia",
     "Transtorno Bipolar",
-    "Insônia & Sono",
+    "Borderline",
+    "Tratamento com Canabidiol",
+    "Transtornos do Sono",
     "TOC",
-    "Burnout Profissional",
-    "Saúde Mental da Mulher"
+    "TDAH",
+    "Autismo",
+    "Compulsão Alimentar",
+    "Obesidade"
   ];
 
   const faqItems = [
@@ -200,7 +202,6 @@ const App: React.FC = () => {
           </div>
 
           {/* Desktop Nav - Hidden on LG (Tablet Landscape), Visible on XL (Desktop) */}
-          {/* Change: Keeping navbar on lg (1024px) but reducing padding/gap to avoid squishing */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-12">
             {navItems.map((item) => (
               <a 
@@ -267,7 +268,6 @@ const App: React.FC = () => {
       </header>
 
       {/* --- HERO SECTION --- */}
-      {/* Update: Changed lg:flex-row to xl:flex-row to ensure Tablet Landscape (1024px) remains stacked */}
       <section className="relative pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-40 lg:pb-24 overflow-hidden">
         <div className="absolute top-0 right-0 w-3/4 md:w-2/3 h-full bg-gradient-to-l from-[#F2EFED] to-transparent -z-10 rounded-l-[50px] md:rounded-l-[150px] opacity-80"></div>
         
@@ -297,7 +297,7 @@ const App: React.FC = () => {
                 </h2>
                 
                 <p className="text-base md:text-lg lg:text-xl text-lux-textSoft font-light leading-relaxed max-w-lg mx-auto xl:mx-0 text-balance opacity-90 mb-6">
-                  Um espaço seguro para tratamento de ansiedade, depressão e transtornos da mente.
+                  Um espaço seguro para tratamento de esquizofrenia e psicose maníaco depressiva.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center xl:justify-start w-full sm:w-auto mb-10 xl:mb-0">
@@ -345,12 +345,11 @@ const App: React.FC = () => {
             
             <div className="w-full max-w-5xl mx-auto mb-4 md:mb-10">
               <FadeIn blur={true}>
-                {/* Adjusted height for Tablet/Large Tablet */}
                 <div className="relative group w-full h-[350px] md:h-[450px] lg:h-[500px] xl:h-[600px] overflow-hidden rounded-[40px] md:rounded-[60px] shadow-soft">
                   <div className="absolute inset-0 bg-lux-secondary/5 transition-transform group-hover:scale-105 pointer-events-none z-10"></div>
                   <img 
                     src="https://pixel-p1.s3.sa-east-1.amazonaws.com/facility/photos/111ab037/111ab037-ea50-46e3-bff8-d4e324631f78_large.jpg" 
-                    alt="Dra. Caroline Aires - Psiquiatria Humanizada e Tratamento de Doenças Mentais" 
+                    alt="Dra. Caroline Aires - Especialista em Esquizofrenia e Psicose Maníaco Depressiva" 
                     className="w-full h-full object-cover object-bottom transition-transform duration-[2s] ease-luxury group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#4E3629]/90 via-[#4E3629]/40 to-transparent p-8 md:p-12 lg:p-16 z-20">
@@ -362,7 +361,6 @@ const App: React.FC = () => {
 
             <div id="sobre" className="max-w-4xl mx-auto w-full">
               <FadeIn delay={200}>
-                {/* Center align for Tablet Landscape (LG), Left align only for XL */}
                 <div className="flex flex-col items-center text-center xl:text-left xl:items-start">
                    <span className="text-lux-secondary text-xs font-bold tracking-[0.25em] uppercase mb-8 block flex items-center justify-center xl:justify-start gap-4">
                     <span className="w-16 h-px bg-lux-secondary/50 hidden xl:block"></span>
@@ -376,7 +374,7 @@ const App: React.FC = () => {
                       Acredito que a psiquiatria vai muito além da prescrição. É sobre devolver a autonomia e a capacidade de sentir a vida em sua plenitude, tratando as doenças da mente com respeito e ciência.
                     </p>
                     <p>
-                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSP-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Cada paciente traz um universo único, e o tratamento de condições como ansiedade e depressão deve refletir essa singularidade, respeitando seus valores e sua história.
+                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSP-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Especialista no manejo de condições complexas como esquizofrenia e transtornos de humor graves, busco sempre o equilíbrio entre evidência científica e empatia.
                     </p>
                   </div>
                   
@@ -407,7 +405,7 @@ const App: React.FC = () => {
                       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-lux-secondary/30 rounded-full hidden xl:block"></div>
                       <p className="font-serif text-xl md:text-2xl lg:text-3xl text-lux-primary font-medium italic leading-relaxed">
                         <span className="text-lux-secondary text-2xl md:text-4xl lg:text-5xl mr-2 opacity-60">"</span>
-                        Transformando ansiedade em futuro brilhante através de uma medicina baseada em evidências e empatia.
+                        Compromisso inegociável com a dignidade humana no tratamento das patologias mais profundas da mente.
                         <span className="text-lux-secondary text-2xl md:text-4xl lg:text-5xl ml-2 opacity-60">"</span>
                       </p>
                     </div>
@@ -435,7 +433,6 @@ const App: React.FC = () => {
             </div>
           </FadeIn>
 
-          {/* Adjusted Grid: MD=2cols, XL=3cols. LG remains 2cols to avoid squeezing. */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
             {[
               { 
@@ -473,7 +470,6 @@ const App: React.FC = () => {
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-lux-secondary/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10">
-          {/* Changed LG to stack, XL to row. Tablet Horizontal (1024px) will stack. */}
           <div className="flex flex-col xl:flex-row gap-16 xl:gap-32">
             <div className="w-full xl:w-1/3 xl:sticky xl:top-40 self-start text-center xl:text-left">
               <FadeIn>
@@ -485,7 +481,7 @@ const App: React.FC = () => {
                   Como posso te <span className="text-lux-secondary italic tracking-normal font-light">ajudar</span>?
                 </h2>
                 <p className="text-lux-textSoft mb-10 md:mb-14 leading-loose text-lg font-light max-w-2xl mx-auto xl:mx-0">
-                  Identificar o problema é o primeiro passo para a cura. O tratamento adequado devolve cores à vida e silencia o ruído da angústia.
+                  O tratamento adequado para transtornos graves devolve a funcionalidade e o equilíbrio. A ciência é nossa maior aliada no reestabelecimento da saúde mental.
                 </p>
                 <Button 
                   onClick={() => scrollToSection('contato')}
@@ -515,7 +511,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- TESTIMONIALS (SOCIAL PROOF - REFINED) --- */}
+      {/* --- TESTIMONIALS --- */}
       <section className="py-20 md:py-28 lg:py-32 xl:py-48 bg-[#4E3629] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
         
@@ -527,12 +523,11 @@ const App: React.FC = () => {
             </div>
           </FadeIn>
 
-          {/* Adjusted grid: 1 col mobile, 2 cols tablet (md/lg), 3 cols desktop (xl) */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
             {[
-              "Desde a primeira consulta com a Dra. Caroline me senti acolhido e ouvido de verdade. Ela é uma profissional extremamente atenciosa, humana e competente, que transmite segurança e confiança em cada atendimento. Sempre demonstra paciência para explicar os detalhes, escuta sem julgamentos e conduz o tratamento de forma clara e eficaz. Tenho sentido uma grande evolução na minha saúde mental graças ao cuidado e dedicação dela. Sem dúvidas, é uma médica que faz toda a diferença na vida dos pacientes. Recomendo de coração!",
-              "Quero deixar meu reconhecimento à Dra. Caroline, uma psiquiatra de excelência, cuja dedicação, empatia e profissionalismo são admiráveis. Sua escuta atenta, sensibilidade no cuidado e clareza nas orientações transmitem segurança e acolhimento desde o primeiro contato. Ela possui uma habilidade única de compreender além das palavras, tratando cada paciente com respeito, humanidade e carinho. Uma profissional rara, que inspira confiança e faz toda a diferença na jornada da saúde mental. Gratidão por seu trabalho tão essencial e transformador!",
-              "Comecei meu acompanhamento com a Dra. Caroline há cerca de dois meses e me sinto muito mais tranquila desde então. Ela é uma profissional extremamente atenciosa, que escuta com sensibilidade e acolhe com respeito. Gosto muito da forma como conduz as consultas, sempre buscando soluções em conjunto comigo, sem pressa ou pressão. Me sinto segura para falar abertamente, pois sei que ela respeita meu tempo e minhas decisões — inclusive em relação ao uso de medicação, que só é considerado quando realmente necessário e sempre com explicações muito claras. Sou muito grata por tê-la encontrado nesse momento da minha vida."
+              "Desde a primeira consulta com a Dra. Caroline me senti acolhido e ouvido de verdade. Ela é uma profissional extremamente atenciosa, humana e competente, que transmite segurança e confiança mesmo em diagnósticos complexos. Sempre demonstra paciência para explicar os detalhes e conduz o tratamento de forma clara. Recomendo de coração!",
+              "Quero deixar meu reconhecimento à Dra. Caroline, uma psiquiatra de excelência, cuja dedicação e profissionalismo em casos de esquizofrenia são admiráveis. Sua escuta atenta e sensibilidade no cuidado transmitem segurança desde o primeiro contato. Uma profissional rara, que inspira confiança e faz toda a diferença.",
+              "Comecei meu acompanhamento com a Dra. Caroline há cerca de dois meses para tratar transtorno bipolar e me sinto muito mais tranquilo desde então. Ela é uma profissional extremamente atenciosa, que escuta com sensibilidade e acolhe com respeito. Sou muito grato por tê-la encontrado nesse momento da minha vida."
             ].map((text, i) => (
               <FadeIn key={i} delay={i * 150} blur={true} className={i === 2 ? "md:col-span-2 xl:col-span-1 md:w-2/3 xl:w-full md:mx-auto" : ""}>
                 <div className="bg-white/5 p-8 md:p-10 lg:p-12 rounded-[32px] backdrop-blur-md border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-3 h-full flex flex-col justify-between hover:shadow-[0_0_40px_rgba(184,115,85,0.2)] group">
@@ -565,7 +560,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* --- LOCALIZAÇÃO: HUB DE ATENDIMENTO --- */}
+      {/* --- LOCALIZAÇÃO --- */}
       <section id="contato" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-lux-bg relative">
         <div className="container mx-auto px-6">
           <FadeIn>
@@ -575,7 +570,6 @@ const App: React.FC = () => {
             </div>
           </FadeIn>
 
-          {/* Adjusted Grid: Stacked on MD, 2-cols on LG/XL. Added xl:max-w-6xl */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 max-w-6xl mx-auto">
              
              {/* CARD 1: TELEMEDICINA */}
@@ -596,7 +590,7 @@ const App: React.FC = () => {
 
                     <h3 className="font-serif text-3xl md:text-4xl text-lux-primary font-bold mb-6">Telemedicina</h3>
                     <p className="text-lux-textSoft mb-10 md:mb-12 leading-loose text-base md:text-lg flex-grow font-light">
-                      Atendimento para todo o Brasil. Conforto, sigilo e praticidade com a mesma profundidade do presencial.
+                      Atendimento para todo o Brasil. Conforto, sigilo e praticidade com a mesma profundidade do presencial para acompanhamento psiquiátrico de excelência.
                     </p>
 
                     <ul className="space-y-4 md:space-y-5 mb-10 md:mb-12 text-sm md:text-base text-lux-textSoft/80">
@@ -676,22 +670,6 @@ const App: React.FC = () => {
 
       {/* --- FAQ SECTION --- */}
       <section id="faq" className="py-20 md:py-28 lg:py-32 xl:py-48 bg-white">
-        {/* FAQ Schema Markup */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": faqItems.map(item => ({
-              "@type": "Question",
-              "name": item.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.answer
-              }
-            }))
-          })
-        }} />
-
         <div className="container mx-auto px-6 max-w-4xl">
           <FadeIn>
              <div className="text-center mb-16 md:mb-20 lg:mb-28">
