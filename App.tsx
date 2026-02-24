@@ -625,7 +625,8 @@ const App: React.FC = () => {
 
              {/* CARD 2: CAMPINAS */}
              <FadeIn delay={300} className="h-full">
-                <div className="relative bg-[#FAF9F6] rounded-[48px] p-8 md:p-12 lg:p-16 border border-lux-primary/5 flex flex-col h-full overflow-hidden hover:bg-white hover:border-lux-secondary/10 hover:shadow-lg transition-all duration-700 group">
+                <div className="relative bg-white rounded-[48px] p-8 md:p-12 lg:p-16 border border-lux-secondary/20 shadow-float flex flex-col h-full overflow-hidden group hover:border-lux-secondary/40 transition-colors duration-500">
+                  <div className="absolute -top-32 -right-32 w-80 h-80 bg-lux-secondary/5 rounded-full blur-[80px] group-hover:bg-lux-secondary/10 transition-colors duration-700"></div>
                    
                    <div className="relative z-10 flex flex-col h-full">
                      <div className="flex items-center justify-between mb-8 md:mb-10">
