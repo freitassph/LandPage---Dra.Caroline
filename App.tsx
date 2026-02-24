@@ -11,6 +11,7 @@ import Button from './components/Button';
 // Configurações Globais
 const LINKS = {
   whatsapp: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Caroline.",
+  whatsappCampinas: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20presencial%20em%20Campinas%20com%20a%20Dra.%20Caroline.",
   waitingList: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20entrar%20na%20lista%20de%20espera%20para%20o%20atendimento%20presencial%20em%20Campinas.",
   doctoralia: "https://www.doctoralia.com.br/caroline-aires-henrique-de-santana/psiquiatra/gurupi",
   instagram: "https://instagram.com/dra.carolineaireshs",
@@ -374,7 +375,7 @@ const App: React.FC = () => {
                       Acredito que a psiquiatria vai muito além da prescrição. É sobre devolver a autonomia e a capacidade de sentir a vida em sua plenitude, tratando as doenças da mente com respeito e ciência.
                     </p>
                     <p>
-                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSP-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Especialista no manejo de condições complexas como esquizofrenia e transtornos de humor graves, busco sempre o equilíbrio entre evidência científica e empatia.
+                      Com formação sólida em <strong className="text-lux-primary font-medium">Psiquiatria pelo IAMSPE-SP</strong>, minha prática une o rigor técnico à sensibilidade humana. Especialista no manejo de condições complexas como esquizofrenia e transtornos de humor graves, busco sempre o equilíbrio entre evidência científica e empatia.
                     </p>
                   </div>
                   
@@ -628,36 +629,45 @@ const App: React.FC = () => {
                    
                    <div className="relative z-10 flex flex-col h-full">
                      <div className="flex items-center justify-between mb-8 md:mb-10">
-                        <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-3xl flex items-center justify-center text-lux-textSoft border border-lux-primary/5 shadow-sm group-hover:text-amber-700 transition-colors">
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-[#FAF9F6] rounded-3xl flex items-center justify-center text-lux-secondary border border-lux-secondary/20 shadow-sm">
                            <MapPin size={32} className="md:w-10 md:h-10" strokeWidth={1.5} />
                         </div>
-                        <span className="bg-amber-50 text-amber-800 text-[10px] md:text-xs font-bold px-4 md:px-5 py-2 rounded-full border border-amber-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
-                           <Hourglass size={14} /> Em Breve
+                        <span className="bg-green-50 text-green-800 text-[10px] md:text-xs font-bold px-4 md:px-5 py-2 rounded-full border border-green-200 uppercase tracking-wider flex items-center gap-2 shadow-sm">
+                          <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                          Disponível
                         </span>
                      </div>
 
                      <h3 className="font-serif text-3xl md:text-4xl text-lux-primary font-bold mb-6">Campinas - SP</h3>
-                     <p className="text-lux-textSoft mb-10 md:mb-12 leading-loose text-base md:text-lg font-light">
-                       Um novo espaço de acolhimento está sendo preparado cuidadosamente para você no coração de Campinas.
+                     <p className="text-lux-textSoft mb-10 md:mb-12 leading-loose text-base md:text-lg flex-grow font-light">
+                       Atendimento presencial no Espaço Nür, um ambiente preparado cuidadosamente para o seu acolhimento e conforto.
                      </p>
                      
-                     <div className="bg-white/60 p-6 rounded-2xl border border-lux-primary/5 mb-10">
-                        <p className="text-xs text-lux-textSoft uppercase tracking-[0.25em] font-bold mb-3 flex items-center gap-2">
-                           <Lock size={14} /> Lista de espera
-                        </p>
-                        <p className="text-sm md:text-base text-lux-textSoft/80 font-light">
-                           Cadastre-se para ser avisado sobre a data de inauguração.
-                        </p>
-                     </div>
+                     <ul className="space-y-4 md:space-y-5 mb-10 md:mb-12 text-sm md:text-base text-lux-textSoft/80">
+                       <li className="flex items-start gap-3">
+                         <MapPin size={20} className="text-lux-secondary shrink-0 mt-0.5" /> 
+                         <span><strong>Espaço Nür</strong><br/>Rua Percílio Neto, 293<br/>Parque Taquaral, Campinas - SP</span>
+                       </li>
+                     </ul>
 
-                     <div className="mt-auto">
+                     <div className="mt-auto flex flex-col gap-4">
                         <Button 
-                          variant="outline" 
+                          variant="primary" 
                           fullWidth 
-                          onClick={() => window.open(LINKS.waitingList, '_blank')}
-                          className="justify-center border-lux-primary/20 text-lux-primary hover:bg-amber-900 hover:border-amber-900 hover:text-white py-5 text-base"
+                          onClick={() => window.open(LINKS.whatsappCampinas, '_blank')}
+                          className="shadow-xl justify-center py-5 bg-lux-secondaryStrong hover:bg-lux-secondary text-base"
+                          icon={<MessageCircle size={22} />}
                         >
-                          Entrar na Lista de Espera
+                          Falar com a secretária
+                        </Button>
+                        <Button
+                          variant="outline"
+                          fullWidth
+                          onClick={() => window.open(LINKS.doctoralia, '_blank')}
+                          className="justify-center py-4 border-lux-secondary/30 text-lux-secondaryStrong hover:bg-lux-bg/50 text-sm"
+                          icon={<Calendar size={18} />}
+                        >
+                           Agendamento via Doctoralia
                         </Button>
                      </div>
                    </div>
