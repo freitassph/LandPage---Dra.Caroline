@@ -10,9 +10,9 @@ import Button from './components/Button';
 
 // Configurações Globais
 const LINKS = {
-  whatsapp: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Caroline.",
-  whatsappCampinas: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20presencial%20em%20Campinas%20com%20a%20Dra.%20Caroline.",
-  waitingList: "https://wa.me/556333010307?text=Olá,%20gostaria%20de%20entrar%20na%20lista%20de%20espera%20para%20o%20atendimento%20presencial%20em%20Campinas.",
+  whatsapp: "https://wa.me/5519990143494?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Caroline.",
+  whatsappCampinas: "https://wa.me/5519990143494?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20presencial%20em%20Campinas%20com%20a%20Dra.%20Caroline.",
+  waitingList: "https://wa.me/5519990143494?text=Olá,%20gostaria%20de%20entrar%20na%20lista%20de%20espera%20para%20o%20atendimento%20presencial%20em%20Campinas.",
   doctoralia: "https://www.doctoralia.com.br/caroline-aires-henrique-de-santana/psiquiatra/gurupi",
   instagram: "https://instagram.com/dra.carolineaireshs",
   escavador: "https://www.escavador.com/sobre/197407363/caroline-aires-de-santana"
