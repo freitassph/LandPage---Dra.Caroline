@@ -25,7 +25,7 @@ const HeroImage: React.FC<{ className?: string }> = ({ className = "" }) => (
     <div className="absolute top-6 -right-6 md:top-12 md:-right-12 w-full h-full bg-[#E8E2DE] rounded-[30px] md:rounded-[40px] -z-10 rotate-3 transition-transform duration-1000 ease-luxury hover:rotate-6 shadow-2xl shadow-[#D8D2CE]/50"></div>
     
     <img 
-      src="https://lh3.googleusercontent.com/d/1cxOqxGx4rkeH_DpMv9eYP5bqdgQ9f_G0" 
+      src="https://i.ibb.co/MkkYp8Pg/427442076-699626498920230-3098732387376952345-n.avif" 
       alt="Dra. Caroline Aires - Psiquiatra especialista em Esquizofrenia e Psicose Maníaco Depressiva Online e em Campinas" 
       className="w-full h-full object-cover rounded-[20px] md:rounded-[30px] shadow-[0_25px_50px_-12px_rgba(78,54,41,0.2)] z-10 relative select-none ring-1 ring-white/40"
       loading="eager"
